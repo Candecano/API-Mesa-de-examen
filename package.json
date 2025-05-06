@@ -1,0 +1,28 @@
+{
+  "name": "mesa-de-examen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":"node dist/src/Index.js",
+    "tsc": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Candecano/Mesa-de-examen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Candecano/Mesa-de-examen/issues"
+  },
+  "homepage": "https://github.com/Candecano/Mesa-de-examen#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.1"
+  }
+}
