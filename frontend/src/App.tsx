@@ -1,46 +1,35 @@
-const App = () => {
-  const PUBLIC_KEY = "BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-  function urlBase64ToUint8Array(base64String: string) {
-    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding).replace(/_/g, "+").replace(/\//g, "/");
-    const rawData = atob(base64);
-    return new Uint8Array([...rawData].map((char) => char.charCodeAt(0)));
-  }
-
-  const subscribe = async () => {
-    const registration = await navigator.serviceWorker.register("/sw.js");
-
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(PUBLIC_KEY),
-    });
-
-    await fetch("http://localhost:3000/api/mesa/1234/paranotificar", {
-      method: "POST",
-      body: JSON.stringify({
-        subscription,
-        mesa: {
-          materia: "Algebra",
-          dia: "10/05",
-          hora: "10:00",
-          modalidad: "Virtual",
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    alert("Suscripto con éxito");
-  };
+function App() {
+  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <h1>Notificaciones de Mesas</h1>
-      <button onClick={subscribe}>Suscribirse</button>
-    </div>
-  );
-};
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
+}
 
-export default App;
+export default App

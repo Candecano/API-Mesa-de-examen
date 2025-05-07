@@ -32,7 +32,7 @@ body : `Materia: ${materia}, Fecha: ${fecha}, Hora: ${hora}, Aula: ${aula}, Moda
 
 //se envia la notif a los profesores
 subscripciones.forEach ((subcripcion) => {
-    webPush.sendNotification(subcripcion, payload).catch ((err) => {
+    webPush.sendNotification(subcripcion, payload).catch ((err: Error) => {
 console.error("No se pudo enviar la subcripcion:", err);
 });
 });
