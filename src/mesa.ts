@@ -3,6 +3,8 @@ import webPush from './webpush';
 
 const router = Router();
 let subscripciones: any[]=[]; // Array para almacenar las subs a las subscripciones
+let mesasExamen: any []=[];
+
 //para registrar las subscripciones
 router.post("/subscripciones", (req: Request, res: Response) => {
 const subcripcion =req.body;
@@ -11,6 +13,35 @@ subscripciones.push(subcripcion); // Agregar la sub al array
 console.log(" nueva subcripcion registrada",subcripcion);
 res.status(201).json({ message: "subscripcion regsitrada" });
 });
+
+
+//se crea una mesa
+router.post("/", (req: Request, res: Response) => {
+  const { materia, fecha, hora, aula, modalidad } = req.body;
+
+  const nuevaMesa = { materia, fecha, hora, aula, modalidad };
+  mesasExamen.push(nuevaMesa); // Guardar la mesa de examen
+  console.log("Nueva mesa de examen creada:", nuevaMesa);
+
+  const payload = JSON.stringify({
+    title: "Nueva Mesa de Examen",
+    body: ` Materia: ${materia}\n Fecha: ${fecha}\n Hora: ${hora}\n Aula: ${aula}\n Modalidad: ${modalidad}`,
+  });
+
+  // Enviar la notificación a todos los docentes suscritos
+  subscripciones.forEach((subcripcion) => {
+    webPush.sendNotification(subcripcion, payload).catch((err) => {
+      console.error("Error al enviar la notificación:", err);
+    });
+  });
+
+  res.status(201).json({ message: "Mesa de examen creada y notificaciones enviadas" });
+});
+
+
+
+
+
 
 
 //notificacion al profesor
@@ -43,21 +74,21 @@ res.status(200).json({ message: `Notificación enviada al profesor ${Idprofe}` }
 
 //para probar
 router.post("/enviar-notificacion", (req: Request, res: Response) => {
-    const { title, body } = req.body;
-  
-    const payload = JSON.stringify({
-      title: title || "Notificación de prueba",
-      body: body || "Esta es una notificación de prueba enviada desde el backend.",
-    });
-  
-    subscripciones.forEach((subcripcion) => {
-      webPush.sendNotification(subcripcion, payload).catch((err) => {
-        console.error("Error al enviar la notificación:", err);
-      });
-    });
-  
-    res.status(200).json({ message: "Notificación enviada a todos los suscriptores." });
+  const { title, body } = req.body;
+
+  const payload = JSON.stringify({
+    title: title || "Notificación de prueba",
+    body: body || "Esta es una notificación de prueba enviada desde el backend.",
   });
+
+  subscripciones.forEach((subcripcion) => {
+    webPush.sendNotification(subcripcion, payload).catch((err) => {
+      console.error("Error al enviar la notificación:", err);
+    });
+  });
+
+  res.status(200).json({ message: "Notificación enviada a todos los suscriptores." });
+});
 
 
 
