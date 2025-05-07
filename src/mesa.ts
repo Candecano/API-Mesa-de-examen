@@ -14,7 +14,7 @@ res.status(201).json({ message: "subscripcion regsitrada" });
 
 
 //notificacion al profesor
-router.post("/NotificacionProfesor", (req: Request, res: Response) =>{
+router.post("/:id/paranotificar", (req: Request, res: Response) =>{
 const {Idprofe}=req.params//se obtiene el id del profesor 
 const { materia, fecha, hora, aula, modalidad } = req.body;//se obtiene el cuerpo de la subcripcion
 
