@@ -1,14 +1,15 @@
 import express from "express";
-import app from "./app";
+import mesaRouter from "./mesa"; 
+const app = express();
 
+app.use(express.json()); // Transforma el body a objeto JSON
 
-app.use(express.json()); //transforma el body a objecto json
 const port = 3000;
 
+// Registrar el router para manejar las rutas de suscripciones y notificaciones
+app.use("/api/mesa", mesaRouter);
 
-//estado del servidor
-
+// Estado del servidor
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
