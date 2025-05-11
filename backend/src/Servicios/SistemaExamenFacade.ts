@@ -1,5 +1,3 @@
-// src/Servicios/SistemaExamenFacade.ts
-
 import { NotificacionService } from "./NotificacionService";
 import { RespuestaProfesorService } from "./RespuestaProfesorService";
 import { MesaInfo } from "./NotificacionesPush";
