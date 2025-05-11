@@ -3,6 +3,7 @@
 import { NotificadorMesas } from "./NotificadorMesas";
 export interface MesaInfo {
   //estructura de la mesa
+ profesor: string; 
   materia: string;
   fecha: string;
   hora: string;

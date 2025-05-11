@@ -1,38 +1,29 @@
-/*
-// backend/Servicios/SistemaExamenFacade.ts
-import { autenticarUsuario } from "../Controladores/Autenticacion";
-import { obtenerMesas, crearMesa } from "../Controladores/GestiondeMesas";
-import { enviarNotificacion } from "../Controladores/Notificaciones";
+// src/Servicios/SistemaExamenFacade.ts
 
-export class SistemaExamenFacade {
-  /**
-   * Simplifica el proceso de autenticación del usuario.
-   * @param correo Correo del usuario
-   * @param contraseña Contraseña del usuario
-  async login(correo: string, contraseña: string) {
-    return await autenticarUsuario({ correo, contraseña });
+import { NotificacionService } from "./NotificacionService";
+import { RespuestaProfesorService } from "./RespuestaProfesorService";
+import { MesaInfo } from "./NotificacionesPush";
+
+class SistemaExamen {
+  private notificador = new NotificacionService();
+  private registro = new RespuestaProfesorService();
+
+  asignarMesa(mesa: MesaInfo): void {
+    // Enviar notificación al docente
+    this.notificador.enviarNotificacion(mesa.profesor, mesa);
   }
 
-  /**
-   * Provee acceso simplificado a la lista de mesas de examen.
-  
-  async listarMesas() {
-    return await obtenerMesas();
+  confirmarAistencia(idProfesor: string, idMesa: string): void {
+    this.registro.registrar(idProfesor, idMesa, true);
   }
 
-
-   * Crea una nueva mesa de examen con los datos proporcionados.
-   * @param mesaData Datos de la nueva mesa
-  
-  async nuevaMesa(mesaData: any) {
-    return await crearMesa(mesaData);
+  rechazarAsistencia(idProfesor: string, idMesa: string): void {
+    this.registro.registrar(idProfesor, idMesa, false);
   }
 
-  /**
-   * Envía una notificación push a los usuarios.
-   * @param mensaje Contenido del mensaje de notificación
-   
-  async notificarUsuarios(mensaje: string) {
-    return await enviarNotificacion(mensaje);
-  } 
-} */
+  obtenerRespuesta(idProfesor: string, idMesa: string): boolean | undefined {
+    return this.registro.obtener(idProfesor, idMesa);
+  }
+}
+
+export default new SistemaExamen();
