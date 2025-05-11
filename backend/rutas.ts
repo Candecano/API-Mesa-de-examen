@@ -8,3 +8,5 @@ router.post ("/mesa/asignar", asignarMesa);
 router.post ("/mesa/confirmar", confirmar);
 router.post ("/mesa/rechazar", rechazar);
 
+
+export default router;
