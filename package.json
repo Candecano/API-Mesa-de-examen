@@ -7,7 +7,7 @@
     "dev": "ts-node-dev backend/src/Index.ts",
     "start": "node dist/backend/src/Index.js",
     "tsc": "tsc",
-    "test": "jest"
+    "test": "npx jest"
   },
   "dependencies": {
     "@types/react": "^19.1.3",
