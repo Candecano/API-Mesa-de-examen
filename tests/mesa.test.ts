@@ -2,7 +2,7 @@
 
 import request from "supertest";
 import express from "express";
-import rutas from "../backend/rutas"; // Importás las rutas principales
+import rutas from "../backend/rutas"; 
 
 const app = express();
 app.use(express.json());

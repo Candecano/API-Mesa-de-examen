@@ -1,14 +1,27 @@
 import { NotificacionService } from "./NotificacionService";
 import { RespuestaProfesorService } from "./RespuestaProfesorService";
 import { MesaInfo } from "./NotificacionesPush";
-
+import { guardarMesa } from "./MesaRepository"; 
+import pool from "../Configuracion/db";
 class SistemaExamen {
   private notificador = new NotificacionService();
   private registro = new RespuestaProfesorService();
 
-  asignarMesa(mesa: MesaInfo): void {
-    // Enviar notificación al docente
-    this.notificador.enviarNotificacion(mesa.profesor, mesa);
+  async asignarMesa(mesa: MesaInfo): Promise<void> {
+    try {
+      // Enviar notificación al docente
+      this.notificador.enviarNotificacion(mesa.profesor, mesa);
+
+      // Guarda en la base de datos (MySQL)
+      guardarMesa(
+         mesa.profesor,
+        mesa.materia,
+         mesa.fecha,       
+        mesa.modalidad);
+
+    } catch (error) {
+      console.error("Error en asignarMesa:", error);
+    }
   }
 
   confirmarAistencia(idProfesor: string, idMesa: string): void {
@@ -25,3 +38,4 @@ class SistemaExamen {
 }
 
 export default new SistemaExamen();
+
