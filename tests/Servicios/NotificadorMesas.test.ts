@@ -1,4 +1,4 @@
-import { NotificadorMesas } from "../../backend/src/Servicios/NotificadorMesas";
+import { NotificadorMesas } from "../../backend/src/Servicios/NotificadorMesasObserver";
 
 describe("NotificadorMesas", () => {
   let notificador: NotificadorMesas;

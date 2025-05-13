@@ -1,16 +1,15 @@
-import * as repo from "../../backend/src/Servicios/MesaRepository";
-import pool from "../../backend/src/Configuracion/db";
+import { MesaRepository } from "../../backend/src/Servicios/MesaRepository";
 
-jest.mock("../../src/Configuracion/db", () => ({
-  execute: jest.fn(),
+jest.mock("../../backend/src/Configuracion/db", () => ({
+  default: { execute: jest.fn() }
 }));
 
 describe("MesaRepository", () => {
-  it("guarda una mesa correctamente", async () => {
-    (pool.execute as jest.Mock).mockResolvedValueOnce([{ insertId: 1 }]);
-
-    const result = await repo.guardarMesa(1, "Álgebra", "2025-05-25", "escrita");
-    expect(pool.execute).toHaveBeenCalled();
-    expect(result).toEqual({ insertId: 1 });
+  it("debería ejecutar un insert al crear una mesa", async () => {
+    const repo = new MesaRepository();
+    await repo.crearMesa({ id: 1, materia: "Mat", fecha: "2025-01-01", hora: "10:00", modalidad: "Presencial" });
+    const db = (await import("../../backend/src/Configuracion/db")).default;
+    expect(db.execute).toHaveBeenCalled();
   });
 });
+
