@@ -1,8 +1,9 @@
 // tests/mesa.test.ts
-
+import db from "../backend/src/Configuracion/db";
 import request from "supertest";
 import express from "express";
-import rutas from "../backend/src/rutas"; 
+import rutas from "../backend/src/rutas";
+ 
 
 const app = express();
 app.use(express.json());
