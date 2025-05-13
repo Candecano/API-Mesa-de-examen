@@ -1,7 +1,4 @@
-// backend/src/Servicios/SistemaExamenFacade.ts
 
-// src/Facade/SistemaExamenFacade.ts
-// src/Servicios/SistemaExamenFacade.ts
 import { MesaRepository } from "../Servicios/MesaRepository";
 import { RespuestaProfesorService } from "../Servicios/RespuestaProfesorService";
 import { NotificacionService } from "./NotificacionService";

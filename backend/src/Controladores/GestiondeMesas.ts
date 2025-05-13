@@ -4,10 +4,12 @@ import { MesaInfo } from "../Servicios/NotificacionesPushObserver";
 import { MesaRepository } from "../Servicios/MesaRepository";
 import { RespuestaProfesorService } from "../Servicios/RespuestaProfesorService";
 import { NotificacionService } from "../Servicios/NotificacionService";
+import { PushNotificationStrategy } from "../Servicios/PushStrategyA";
 //cliente de facade
 const mesaRepo = new MesaRepository();
 const respuestaService = new RespuestaProfesorService();
-const notificador = new NotificacionService();
+const estrategia = new PushNotificationStrategy();
+const notificador = new NotificacionService(estrategia);
 
 //Facade para usar en los metodos ya definidos
 const facade = new SistemaExamenFacade(mesaRepo, respuestaService, notificador);

@@ -1,21 +1,21 @@
-// src/Servicios/NotificacionServiceFacade.ts
- 
-import webpush from "web-push";
+import { INotificacionStrategy } from "./INotificacionStrategy";
 
-import { subscripciones } from "../subscripciones"; // ruta correcta segun tu estructura
 export class NotificacionService {
-  async enviarNotificacion(titulo: string, payload: any): Promise<void> {
-    const cuerpo = {
-      title: titulo,
-      body: JSON.stringify(payload),
-    };
+  private estrategia: INotificacionStrategy;
 
-    for (const sub of subscripciones) {
-      try {
-        await webpush.sendNotification(sub, JSON.stringify(cuerpo));
-      } catch (error) {
-        console.error("Error enviando notificación:", error);
-      }
-    }
+  constructor(estrategia: INotificacionStrategy) {
+    this.estrategia = estrategia;
+  }
+
+  setEstrategia(estrategia: INotificacionStrategy) {
+    this.estrategia = estrategia;
+  }
+
+  async enviarNotificacion(titulo: string, payload: any): Promise<void> {
+    const idProfesor = payload.profesor || payload.profesorId;
+
+    const mensaje = `${titulo}: ${JSON.stringify(payload)}`;
+
+    await this.estrategia.enviarNotificacion(idProfesor, mensaje);
   }
 }

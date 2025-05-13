@@ -1,4 +1,4 @@
-// src/Repositorios/MesaRepository.ts
+
 import pool from "../Configuracion/db";
 
 export class MesaRepository {
