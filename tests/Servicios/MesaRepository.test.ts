@@ -1,5 +1,5 @@
-import * as repo from "../../src/Repositorios/MesaRepository";
-import pool from "../backend/src/Configuracion/db";
+import * as repo from "../../backend/src/Servicios/MesaRepository";
+import pool from "../../backend/src/Configuracion/db";
 
 jest.mock("../../src/Configuracion/db", () => ({
   execute: jest.fn(),
