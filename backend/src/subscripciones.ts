@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
-import NotificacionPushService from "./Servicios/NotificacionesPush";
+import NotificacionPushService from "./Servicios/NotificacionesPushObserver";
 
+export const subscripciones: any[] = [];
 const router = Router();
 
 router.post("/subscripciones", (req: Request, res: Response) => {

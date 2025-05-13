@@ -4,8 +4,8 @@
 
 
 import webpush from "web-push";
-import { Observer } from "./Observer";
-import { MesaInfo} from "./NotificacionesPush";
+import { Observer } from "./IObserver";
+import { MesaInfo} from "./NotificacionesPushObserver";
 export class PushSuscripcion implements Observer {
   //suscripcion del navegador
     constructor(private subscription: any) {}
