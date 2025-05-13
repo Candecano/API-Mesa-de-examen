@@ -21,7 +21,7 @@ jobs:
     - name: Instalar dependencias
       run: npm install
 
-    - name: Dar permisos de ejecución a los binarios de npm
+    - name: Dar permisos de ejecución a jest
       run: chmod +x ./node_modules/.bin/jest
 
     - name: Ejecutar tests backend
