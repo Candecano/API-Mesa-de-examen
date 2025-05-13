@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import SistemaExamen from "../Servicios/SistemaExamenFacade";
 import { MesaInfo } from "../Servicios/NotificacionesPush";
-
+//cliente de facade
 //nueva mesa + notificacion
 export const asignarMesa = (req: Request, res: Response) => {
   const mesa: MesaInfo = req.body;

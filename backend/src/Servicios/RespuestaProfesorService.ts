@@ -1,5 +1,5 @@
 // src/services/RespuestaProfesorService.ts
-
+//SUBSISTEMA DE FACADE
 interface Respuesta {
   profesorId: string;
   mesaId: string;

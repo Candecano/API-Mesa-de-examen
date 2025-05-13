@@ -1,4 +1,4 @@
-import { NotificacionService } from "./NotificacionService";
+import { NotificacionService } from "./NotificacionServiceFacade";
 import { RespuestaProfesorService } from "./RespuestaProfesorService";
 import { MesaInfo } from "./NotificacionesPush";
 import { guardarMesa } from "./MesaRepository"; 
