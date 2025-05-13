@@ -1,6 +1,6 @@
 //observer
 //exporta una instancia 
-import { NotificadorMesas } from "./NotificadorMesas";
+import { NotificadorMesas } from "./NotificadorMesasObserver";
 export interface MesaInfo {
   //estructura de la mesa
  profesor: number; 

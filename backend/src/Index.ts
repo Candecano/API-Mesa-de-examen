@@ -1,6 +1,6 @@
 import express from "express";
 import rutas from "./rutas";
-import suscripcionesRouter from "./suscripciones";
+import suscripcionesRouter from "./subscripciones";
 import pool from "./Configuracion/db";
 async function testDBConnection() {
   try {

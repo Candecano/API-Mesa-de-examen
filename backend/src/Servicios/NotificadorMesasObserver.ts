@@ -1,8 +1,8 @@
 //observer
 //sujeto observado-notifica a los observadores cuando hay una nueva mesa
-import { Observer } from "./Observer";
-import { PushSuscripcion } from "./PushSuscripcion";
-import { MesaInfo} from "./NotificacionesPush";
+import { Observer } from "./IObserver";
+import { PushSuscripcion } from "./PushSuscripcionObserver";
+import { MesaInfo} from "./NotificacionesPushObserver";
 export class NotificadorMesas {
 //observadores registrados
   private observers: Observer[] = [];
