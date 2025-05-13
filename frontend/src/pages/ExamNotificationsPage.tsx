@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ExamNotificationCard from '../componentes/ExamNotificationCard';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import useAuth from '../hooks/useAuth'; // Importa useAuth
 
 interface ExamNotification {
   id: string;
@@ -11,6 +13,7 @@ interface ExamNotification {
 
 const ExamNotificationsPage: React.FC = () => {
   const [notificaciones, setNotificaciones] = useState<ExamNotification[]>([]);
+  const { logout, username } = useAuth();
 
   useEffect(() => {
     // Simulación de datos
@@ -48,9 +51,23 @@ const ExamNotificationsPage: React.FC = () => {
     alert(`Rechazaste la mesa con ID ${id}`);
   };
 
+ 
+const navigate = useNavigate();
+
+const handleLogout = () => {
+  logout();            
+};
+
+// En el JSX:
+  const handleLogoutClick = () => {
+    handleLogout();
+    navigate('/'); // Redirige a la página de inicio de sesión
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <h2>Notificaciones de Mesas de Examen</h2>
+   <button onClick={() => alert('Te has suscrito a las notificaciones')}>Suscribirse a Notificaciones</button>
       {notificaciones.map((n) => (
         <ExamNotificationCard
           key={n.id}
