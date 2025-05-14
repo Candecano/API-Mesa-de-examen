@@ -2,6 +2,8 @@ import express from "express";
 import rutas from "./rutas";
 import suscripcionesRouter from "./subscripciones";
 import pool from "./Configuracion/db";
+import cors from "cors";
+
 
 async function testDBConnection() {
   try {
@@ -15,8 +17,9 @@ async function testDBConnection() {
 testDBConnection();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 app.use("/api", rutas);
 app.use("/api", suscripcionesRouter); // maneja /api/subscripciones
 

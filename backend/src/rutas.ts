@@ -5,17 +5,20 @@ import {
   confirmarMesa as confirmar,
   rechazarMesa as rechazar
 } from "./Controladores/GestiondeMesas";
+import subscripcionesRouter from "./subscripciones";
+
 
 const router = Router();
-router.post("/login", login); // ⬅ nueva ruta de inicio de sesión
+router.post("/login", login);
 
 router.post ("/mesa/asignar", asignarMesa);
 router.post ("/mesa/confirmar", confirmar);
 router.post ("/mesa/rechazar", rechazar);
-
+router.use("/subscripciones", subscripcionesRouter);
 export default router;
 
 //rutas post 
 //http://localhost:3000/api/mesa/asignar
 //http://localhost:3000/api/mesa/confirmar
 //http://localhost:3000/api/mesa/rechazar
+// http://localhost:3000/api/subscripciones
