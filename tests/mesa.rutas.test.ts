@@ -2,12 +2,17 @@ import request from "supertest";
 import express from "express";
 import rutas from "../backend/src/rutas";
 
-jest.mock("../backend/src/Configuracion/db", () => ({
-  default: {
-    execute: jest.fn().mockResolvedValue([]) // evita cuelgue en db
-  }
-}));
+//mock de db
+jest.mock("../backend/src/Configuracion/db", () => {
+  return {
+    __esModule: true, 
+    default: {
+      execute: jest.fn().mockResolvedValue([[], []]) //simula respuesta de mysql2
+    }
+  };
+});
 
+//mock del servicio de notificacion
 jest.mock("../backend/src/Servicios/NotificacionService", () => {
   return {
     NotificacionService: jest.fn().mockImplementation(() => ({
@@ -16,13 +21,14 @@ jest.mock("../backend/src/Servicios/NotificacionService", () => {
   };
 });
 
+//configurar la app de pruebas
 const app = express();
 app.use(express.json());
-app.use(rutas);
+app.use("/api", rutas); 
 
 describe("Tests para las rutas de mesa", () => {
-  it("POST /mesa/asignar", async () => {
-    const response = await request(app).post("/mesa/asignar").send({
+  it("POST /api/mesa/asignar debe devolver 200 o 201", async () => {
+    const response = await request(app).post("/api/mesa/asignar").send({
       id: 1,
       profesor: 1,
       materia: "Física",
@@ -33,16 +39,22 @@ describe("Tests para las rutas de mesa", () => {
 
     expect([200, 201]).toContain(response.status);
   });
-  
-  it("PUT /mesa/modificar debe devolver 200", async () => {
-  const response = await request(app).put("/mesa/modificar").send({
-    id: 1,
-    materia: "Matemática",
-    fecha: "2025-06-01",
-    hora: "10:00",
-    modalidad: "Presencial"
+
+  it("POST /api/mesa/confirmar debe devolver 200", async () => {
+    const response = await request(app).post("/api/mesa/confirmar").send({
+      id: 1,
+      profesor: 1
+    });
+
+    expect(response.status).toBe(200);
   });
 
-  expect(response.status).toBe(200);
-});
+  it("POST /api/mesa/rechazar debe devolver 200", async () => {
+    const response = await request(app).post("/api/mesa/rechazar").send({
+      id: 1,
+      profesor: 1
+    });
+
+    expect(response.status).toBe(200);
+  });
 });
