@@ -1,0 +1,23 @@
+//observer- profesor suscripto a las notif (observador)
+//el profesor acepta recibir las notificaciones
+//el notificador de mesas (objeto) le avisa cuando hay un cambio o algo nuevo
+
+
+import webpush from "web-push";
+import { Observer } from "./IObserver";
+import { MesaInfo} from "./NotificacionesPushObserver";
+export class PushSuscripcion implements Observer {
+    constructor(private subscription: any) {} //suscripcion del navegador
+    async update(mesa: MesaInfo): Promise<void> { //cada vez que el sujeto observado llame a su metodo notify se ejecuta este metodo
+    const payload = JSON.stringify({   //mensaje de la notif
+      title: "Nueva mesa asignada",
+      ...mesa,
+    });
+//envio de la notificacion a la suscripcion 
+    try {
+      await webpush.sendNotification(this.subscription, payload);
+    } catch (error) {
+      console.error("Error al enviar notificación:", error);
+    }
+  }
+}
