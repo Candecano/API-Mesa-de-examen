@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './componentes/Auth/LoginPage';
 import ExamNotificationsPage from './pages/ExamNotificationsPage';
-import useAuth from './hooks/useAuth';
+import { useAuth } from './hooks/AuthContext';
+
 
 const clavePublica = "BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
 

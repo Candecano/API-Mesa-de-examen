@@ -4,11 +4,12 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
-  const login = (user: string) => {
-    setIsAuthenticated(true);
-    setUsername(user);
-    // Aquí podrías guardar el estado en localStorage o similar
-  };
+const login = (user: string) => {
+  localStorage.setItem("username", user);
+  setUsername(user);
+  setIsAuthenticated(true);
+};
+
 
   const logout = () => {
     setIsAuthenticated(false);
