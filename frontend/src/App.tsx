@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './componentes/Auth/LoginPage';
+import ExamNotificationsPage from './pages/ExamNotificationsPage';
+import { useAuth } from './hooks/AuthContext';
+
 
 const clavePublica = "BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
 
 function App() {
   const [registro, setRegistro] = useState<ServiceWorkerRegistration | null>(null);
   const [suscrito, setSuscrito] = useState(false);
+  const { isAuthenticated, login } = useAuth(); // Usa el hook de autenticación aquí
 
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -45,17 +51,12 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Notificaciones Web Push</h1>
-      {!suscrito ? (
-        <>
-          <p>Haz clic para suscribirte a las notificaciones:</p>
-          <button onClick={suscribirse}>Suscribirse</button>
-        </>
-      ) : (
-        <p>¡Ya estás suscrito a las notificaciones!</p>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={!isAuthenticated ? <LoginPage onLogin={login} /> : <Navigate to="/examenes" />} />
+        <Route path="/examenes" element={isAuthenticated ? <ExamNotificationsPage /> : <Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
 

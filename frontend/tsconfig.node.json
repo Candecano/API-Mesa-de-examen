@@ -8,10 +8,11 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "composite": true, // <--- Agregado
+    "noEmit": false,  // <--- Cambiado a false o puedes eliminar la línea
 
     /* Linting */
     "strict": true,
