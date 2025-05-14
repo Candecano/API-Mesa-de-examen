@@ -7,12 +7,9 @@ import webpush from "web-push";
 import { Observer } from "./IObserver";
 import { MesaInfo} from "./NotificacionesPushObserver";
 export class PushSuscripcion implements Observer {
-  //suscripcion del navegador
-    constructor(private subscription: any) {}
-//cada vez que el sujeto observado llame a su metodo notify se ejecuta este metodo
-  async update(mesa: MesaInfo): Promise<void> {
-    //mensaje de la notif
-    const payload = JSON.stringify({
+    constructor(private subscription: any) {} //suscripcion del navegador
+    async update(mesa: MesaInfo): Promise<void> { //cada vez que el sujeto observado llame a su metodo notify se ejecuta este metodo
+    const payload = JSON.stringify({   //mensaje de la notif
       title: "Nueva mesa asignada",
       ...mesa,
     });

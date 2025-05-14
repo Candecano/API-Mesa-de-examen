@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev backend/src/Index.ts",
-    "start": "node dist/backend/src/Index.js",
+    "start": "node dist/src/Index.js",
     "tsc": "tsc",
     "test": "jest",
     "coverage": "jest --coverage"
@@ -41,6 +41,7 @@
     "@types/supertest": "^6.0.3",
     "@types/web-push": "^3.6.4",
     "jest": "^29.7.0",
+    "playwright": "^1.52.0",
     "supertest": "^7.1.1",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
