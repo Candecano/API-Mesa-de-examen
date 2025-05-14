@@ -18,7 +18,7 @@ describe("Pruebas con Playwright", () => {
   it("Debería cargar la página de inicio correctamente", async () => {
     jest.setTimeout(20000);  // Aumenta el tiempo de espera a 20 segundos
 
-    await page.goto("http://localhost:3000", { waitUntil: "load" });  /
+    await page.goto("http://localhost:3000", { waitUntil: "load" });  
     const title = await page.title();
     expect(title).toBe("Página de Examen");  
   });
