@@ -1,4 +1,4 @@
-// src/Controladores/AuthController.ts
+
 import { Request, Response } from "express";
 import { AuthService } from "../Servicios/AuthService";
 
@@ -9,7 +9,7 @@ export const login = (req: Request, res: Response): void => {
   const token = authService.login(email, password);
 
   if (!token) {
-    res.status(401).json({ mensaje: "Credenciales inválidas" });
+    res.status(401).json({ mensaje: "Credenciales invalidas" });
     return;
   }
 

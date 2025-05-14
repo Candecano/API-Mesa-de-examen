@@ -21,7 +21,7 @@ jest.mock("../backend/src/Servicios/NotificacionService", () => {
   };
 });
 
-//configurar la app de pruebas
+
 const app = express();
 app.use(express.json());
 app.use("/api", rutas); 
@@ -31,7 +31,7 @@ describe("Tests para las rutas de mesa", () => {
     const response = await request(app).post("/api/mesa/asignar").send({
       id: 1,
       profesor: 1,
-      materia: "Física",
+      materia: "Fisica",
       fecha: "2025-07-10",
       hora: "10:00",
       modalidad: "Presencial"

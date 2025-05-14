@@ -3,6 +3,7 @@ import { login } from "./Controladores/AuthController"; // controlador que manej
 import {
   asignarMesa,
   confirmarMesa as confirmar,
+  notificarMesaDePrueba,
   rechazarMesa as rechazar
 } from "./Controladores/GestiondeMesas";
 import subscripcionesRouter from "./subscripciones";
@@ -10,7 +11,7 @@ import subscripcionesRouter from "./subscripciones";
 
 const router = Router();
 router.post("/login", login);
-
+router.post("/mesa/notificar-prueba", notificarMesaDePrueba);
 router.post ("/mesa/asignar", asignarMesa);
 router.post ("/mesa/confirmar", confirmar);
 router.post ("/mesa/rechazar", rechazar);

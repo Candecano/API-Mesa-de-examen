@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/Candecano/Mesa-de-examen#readme",
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@types/cors": "^2.8.18",
     "@types/css-modules": "^1.0.5",
     "@types/express": "^5.0.1",

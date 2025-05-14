@@ -10,7 +10,7 @@ jest.mock("../../backend/src/Servicios/NotificacionesPushObserver", () => ({
 }));
 
 describe("PushNotificationStrategy", () => {
-  it("debería invocar NotificacionPushService.notify con los datos de mesa", async () => {
+  it("deberia invocar NotificacionPushService.notify con los datos de mesa", async () => {
     const strategy = new PushNotificationStrategy();
 
     const idProfesor = 123;

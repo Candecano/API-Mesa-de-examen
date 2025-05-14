@@ -1,9 +1,9 @@
-// src/Servicios/AuthService.ts
+
 import jwt from "jsonwebtoken";
 
-const SECRET = "secreto123"; // ponelo en .env después
+const SECRET = "secreto123"; 
 
-// usuarios en memoria (simulación)
+// usuarios en memoria (simulacion)
 const usuarios = [
   { email: "profesor@ucp.edu.ar", password: "1234" },
 ];

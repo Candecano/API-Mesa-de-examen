@@ -22,7 +22,7 @@ export function authMiddleware(
     (req as any).usuario = decoded;
     next();
   } catch (error) {
-    res.status(403).json({ mensaje: "Token inválido" });
+    res.status(403).json({ mensaje: "Token invalido" });
     return; 
   }
 }

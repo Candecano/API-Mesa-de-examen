@@ -14,14 +14,14 @@ function App() {
       navigator.serviceWorker
         .register("/sw.js")
         .then(async (reg) => {
-          console.log("✅ Service Worker registrado:", reg);
+          console.log(" Service Worker registrado:", reg);
 
           const subscription = await reg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(clavePublica),
           });
 
-          console.log("📩 Suscripción generada:", subscription);
+          console.log(" Suscripcion generada:", subscription);
 
           await fetch("http://localhost:3000/api/subscripciones", {
             method: "POST",
@@ -29,9 +29,9 @@ function App() {
             body: JSON.stringify(subscription),
           });
 
-          console.log("📨 Suscripción enviada al backend");
+          console.log("Suscripcion enviada al backend");
         })
-        .catch((err) => console.error("❌ Error registrando SW:", err));
+        .catch((err) => console.error(" Error registrando SW:", err));
     }
   }, []);
 

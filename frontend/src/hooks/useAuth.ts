@@ -14,7 +14,7 @@ const useAuth = () => {
     setUsername(null);
   };
 
-  //Simulación de carga de estado al iniciar la aplicación
+  
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
@@ -23,7 +23,6 @@ const useAuth = () => {
     }
   }, []);
 
-  //Simulación de guardado del estado al cambiar
   useEffect(() => {
     if (username) {
       localStorage.setItem('username', username);

@@ -6,7 +6,7 @@ import { MesaInfo } from "../../backend/src/Servicios/NotificacionesPushObserver
 jest.mock("web-push");
 
 describe("PushSuscripcion", () => {
-  it("debería enviar una notificación cuando se actualiza", async () => {
+  it("deberia enviar una notificacion cuando se actualiza", async () => {
     const fakeSubscription = {
       endpoint: "https://fake-endpoint.com",
       keys: {
@@ -19,7 +19,7 @@ describe("PushSuscripcion", () => {
 
     const mesa: MesaInfo = {
       profesor: 123,
-      materia: "Matemática I",
+      materia: "Matematica I",
       fecha: "2025-06-01",
       modalidad: "Oral"
     };

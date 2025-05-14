@@ -17,7 +17,7 @@ export class PushSuscripcion implements Observer {
     try {
       await webpush.sendNotification(this.subscription, payload);
     } catch (error) {
-      console.error("Error al enviar notificación:", error);
+      console.error("Error al enviar notificacion:", error);
     }
   }
 }

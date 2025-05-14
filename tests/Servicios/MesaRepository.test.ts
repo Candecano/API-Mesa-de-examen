@@ -9,7 +9,7 @@ jest.mock("../../backend/src/Configuracion/db", () => ({
 }));
 
 describe("MesaRepository", () => {
-  it("debería ejecutar un insert al crear una mesa", async () => {
+  it("deberia ejecutar un insert al crear una mesa", async () => {
     const repo = new MesaRepository();
     
     await repo.crearMesa({
@@ -25,3 +25,15 @@ describe("MesaRepository", () => {
 });
 
 
+it("deberia lanzar un error si falla la insercion", async () => {
+  const repo = new MesaRepository();
+  (db.execute as jest.Mock).mockRejectedValueOnce(new Error("Error en BD"));
+
+  await expect(repo.crearMesa({
+    id: 2,
+    materia: "Algoritmos",
+    fecha: "2025-05-20",
+    hora: "08:00",
+    modalidad: "Digital"
+  })).rejects.toThrow("Error en BD");
+});

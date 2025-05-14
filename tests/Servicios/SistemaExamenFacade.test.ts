@@ -9,19 +9,19 @@ describe("SistemaExamenFacade", () => {
   const notificador = { enviarNotificacion: jest.fn() } as any as NotificacionService;
   const facade = new SistemaExamenFacade(repo, respuestaService, notificador);
 
-  it("debería asignar una mesa", async () => {
-    await facade.asignarMesa({ id: 1, materia: "Física", fecha: "2025-07-10", hora: "10:00", modalidad: "Virtual" });
+  it("deberia asignar una mesa", async () => {
+    await facade.asignarMesa({ id: 1, materia: "Fisica", fecha: "2025-07-10", hora: "10:00", modalidad: "Virtual" });
     expect(repo.crearMesa).toHaveBeenCalled();
     expect(notificador.enviarNotificacion).toHaveBeenCalled();
   });
 
-  it("debería confirmar mesa", () => {
+  it("deberia confirmar mesa", () => {
     facade.confirmarMesa("m1", "p1");
     expect(respuestaService.confirmar).toHaveBeenCalled();
     expect(notificador.enviarNotificacion).toHaveBeenCalled();
   });
 
-  it("debería rechazar mesa", () => {
+  it("deberia rechazar mesa", () => {
     facade.rechazarMesa("m2", "p2");
     expect(respuestaService.rechazar).toHaveBeenCalled();
     expect(notificador.enviarNotificacion).toHaveBeenCalled();

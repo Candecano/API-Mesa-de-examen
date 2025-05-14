@@ -22,7 +22,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
   return (
     <div>
-      <h2>Iniciar Sesión</h2>
+      <h2>Iniciar Sesion</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Usuario:</label>

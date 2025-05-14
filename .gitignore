@@ -9994,3 +9994,9 @@ node_modules/mesa-de-examen/node_modules/math-intrinsics/constants/maxArrayLengt
 node_modules/mesa-de-examen/node_modules/math-intrinsics/constants/maxSafeInteger.d.ts
 node_modules/mesa-de-examen/node_modules/math-intrinsics/constants/maxSafeInteger.js
 node_modules/mesa-de-examen/node_modules/math-intrinsics/constants/maxValue.d.ts
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
