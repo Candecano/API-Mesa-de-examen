@@ -1,41 +1,44 @@
-import { NotificacionService } from "./NotificacionServiceFacade";
-import { RespuestaProfesorService } from "./RespuestaProfesorService";
-import { MesaInfo } from "./NotificacionesPush";
-import { guardarMesa } from "./MesaRepository"; 
-import pool from "../Configuracion/db";
-class SistemaExamen {
-  private notificador = new NotificacionService();
-  private registro = new RespuestaProfesorService();
 
-  async asignarMesa(mesa: MesaInfo): Promise<void> {
-    try {
-      // Enviar notificación al docente
-      this.notificador.enviarNotificacion(mesa.profesor, mesa);
+import { MesaRepository } from "../Servicios/MesaRepository";
+import { RespuestaProfesorService } from "../Servicios/RespuestaProfesorService";
+import { NotificacionService } from "./NotificacionService";
 
-      // Guarda en la base de datos (MySQL)
-      guardarMesa(
-         mesa.profesor,
-        mesa.materia,
-         mesa.fecha,       
-        mesa.modalidad);
+export class SistemaExamenFacade {
+  static confirmar(idProfesor: any, idMesa: any) {
+    throw new Error("Method not implemented.");
+  }
+  private mesaRepo: MesaRepository;
+  private respuestaService: RespuestaProfesorService;
+  private notificador: NotificacionService;
 
-    } catch (error) {
-      console.error("Error en asignarMesa:", error);
-    }
+  constructor(
+    mesaRepo: MesaRepository,
+    respuestaService: RespuestaProfesorService,
+    notificador: NotificacionService
+  ) {
+    this.mesaRepo = mesaRepo;
+    this.respuestaService = respuestaService;
+    this.notificador = notificador;
   }
 
-  confirmarAistencia(idProfesor: string, idMesa: string): void {
-    this.registro.registrar(idProfesor, idMesa, true);
+  public async asignarMesa(mesa: {
+    id: number;
+    materia: string;
+    fecha: string;
+    hora: string;
+    modalidad: string;
+  }): Promise<void> {
+    await this.mesaRepo.crearMesa(mesa);
+    await this.notificador.enviarNotificacion("Nueva mesa creada", mesa);
   }
 
-  rechazarAsistencia(idProfesor: string, idMesa: string): void {
-    this.registro.registrar(idProfesor, idMesa, false);
+  public confirmarMesa(idMesa: string, profesorId: string): void {
+    this.respuestaService.confirmar(idMesa, profesorId);
+    this.notificador.enviarNotificacion("Mesa confirmada", { idMesa, profesorId });
   }
 
-  obtenerRespuesta(idProfesor: string, idMesa: string): boolean | undefined {
-    return this.registro.obtener(idProfesor, idMesa);
+  public rechazarMesa(idMesa: string, profesorId: string): void {
+    this.respuestaService.rechazar(idMesa, profesorId);
+    this.notificador.enviarNotificacion("Mesa rechazada", { idMesa, profesorId });
   }
 }
-
-export default new SistemaExamen();
-
