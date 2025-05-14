@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ExamNotificationCard from '../componentes/ExamNotificationCard';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import useAuth from '../hooks/useAuth'; // Importa useAuth
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/AuthContext'; // Asegurate de usar el contexto nuevo
 
 interface ExamNotification {
   id: string;
@@ -14,6 +14,7 @@ interface ExamNotification {
 const ExamNotificationsPage: React.FC = () => {
   const [notificaciones, setNotificaciones] = useState<ExamNotification[]>([]);
   const { logout, username } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulación de datos
@@ -51,23 +52,27 @@ const ExamNotificationsPage: React.FC = () => {
     alert(`Rechazaste la mesa con ID ${id}`);
   };
 
- 
-const navigate = useNavigate();
-
-const handleLogout = () => {
-  logout();            
-};
-
-// En el JSX:
   const handleLogoutClick = () => {
-    handleLogout();
-    navigate('/'); // Redirige a la página de inicio de sesión
+    const confirmar = window.confirm('¿Seguro que querés cerrar sesión?');
+    if (confirmar) {
+      logout();
+      navigate('/');
+    }
   };
 
   return (
     <div style={{ padding: '20px' }}>
       <h2>Notificaciones de Mesas de Examen</h2>
-   <button onClick={() => alert('Te has suscrito a las notificaciones')}>Suscribirse a Notificaciones</button>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div>👋 Hola, {username}</div>
+        <button onClick={handleLogoutClick}>Cerrar sesión</button>
+      </div>
+
+      <button onClick={() => alert('Te has suscrito a las notificaciones')}>
+        Suscribirse a Notificaciones
+      </button>
+
       {notificaciones.map((n) => (
         <ExamNotificationCard
           key={n.id}
