@@ -7,16 +7,14 @@ const useAuth = () => {
   const login = (user: string) => {
     setIsAuthenticated(true);
     setUsername(user);
-    // Aquí podrías guardar el estado en localStorage o similar
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUsername(null);
-    // Aquí podrías limpiar el estado del localStorage
   };
 
-  // Simulación de carga de estado al iniciar la aplicación
+  //Simulación de carga de estado al iniciar la aplicación
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
@@ -25,7 +23,7 @@ const useAuth = () => {
     }
   }, []);
 
-  // Simulación de guardado del estado al cambiar
+  //Simulación de guardado del estado al cambiar
   useEffect(() => {
     if (username) {
       localStorage.setItem('username', username);

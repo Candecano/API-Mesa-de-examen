@@ -6,7 +6,7 @@ interface ExamNotification {
   hora: string;
   fecha: string;
   ubicacion: string;
-  id: string; // Para identificar cada notificación
+  id: string; 
 }
 
 interface ExamNotificationCardProps {

@@ -9,7 +9,6 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ username }) => {
     <div>
       <h3>Perfil del Usuario</h3>
       {username ? <p>Bienvenido, {username}</p> : <p>No hay usuario autenticado.</p>}
-      {/* Aquí podrías agregar más información del perfil */}
     </div>
   );
 };

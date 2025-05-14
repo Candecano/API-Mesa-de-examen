@@ -12,7 +12,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Aquí iría la lógica de autenticación contra un backend
     if (username === 'profesor' && password === 'clave') {
       onLogin(username);
       navigate('/examenes');
