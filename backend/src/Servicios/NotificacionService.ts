@@ -1,16 +1,21 @@
-import WebPushConfig from "../Configuracion/WebPushConfig";
-import { MesaInfo } from "./NotificacionesPush";
+import { INotificacionStrategy } from "./INotificacionStrategy";
 
 export class NotificacionService {
-  async enviarNotificacion(profesor: any, mesa: MesaInfo): Promise<void> {
-    const mensaje = `Mesa de ${mesa.materia} el ${mesa.fecha}`;
-    const webpush = WebPushConfig.getinstance().getWebPush();
+  private estrategia: INotificacionStrategy;
 
-    if (profesor.suscripcionPush) {
-      await webpush.sendNotification(
-        profesor.suscripcionPush,
-        JSON.stringify({ title: "Nueva Mesa Asignada", body: mensaje })
-      );
-    }
+  constructor(estrategia: INotificacionStrategy) {
+    this.estrategia = estrategia;
+  }
+
+  setEstrategia(estrategia: INotificacionStrategy) {
+    this.estrategia = estrategia;
+  }
+
+  async enviarNotificacion(titulo: string, payload: any): Promise<void> {
+    const idProfesor = payload.profesor || payload.profesorId;
+
+    const mensaje = `${titulo}: ${JSON.stringify(payload)}`;
+
+    await this.estrategia.enviarNotificacion(idProfesor, mensaje);
   }
 }

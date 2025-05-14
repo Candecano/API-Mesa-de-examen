@@ -1,8 +1,14 @@
 import { Router } from "express";
-import {asignarMesa, confirmar, rechazar,} from "./Controladores/GestiondeMesas";
-
+import { login } from "./Controladores/AuthController"; // controlador que maneja el login
+import {
+  asignarMesa,
+  confirmarMesa as confirmar,
+  rechazarMesa as rechazar
+} from "./Controladores/GestiondeMesas";
 
 const router = Router();
+router.post("/login", login); // ⬅ nueva ruta de inicio de sesión
+
 router.post ("/mesa/asignar", asignarMesa);
 router.post ("/mesa/confirmar", confirmar);
 router.post ("/mesa/rechazar", rechazar);
