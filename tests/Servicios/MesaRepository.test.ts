@@ -14,10 +14,9 @@ describe("MesaRepository", () => {
     
     await repo.crearMesa({
       id: 1,
-      materia: "Mat",
+      Materia: "Mat",
       fecha: "2025-01-01",
-      hora: "10:00",
-      modalidad: "Presencial"
+      Modalidad: "Presencial"
     });
 
     expect(db.execute).toHaveBeenCalled();
@@ -31,9 +30,8 @@ it("deberia lanzar un error si falla la insercion", async () => {
 
   await expect(repo.crearMesa({
     id: 2,
-    materia: "Algoritmos",
+    Materia: "Algoritmos",
     fecha: "2025-05-20",
-    hora: "08:00",
-    modalidad: "Digital"
+    Modalidad: "Digital"
   })).rejects.toThrow("Error en BD");
 });

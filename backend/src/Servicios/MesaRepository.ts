@@ -1,20 +1,20 @@
-
+//acceso a los datos de la bd
 import pool from "../Configuracion/db";
 
 export class MesaRepository {
   async crearMesa(data: {
     id: number;
-    materia: string;
+    Materia: string;
     fecha: string;
-    hora: string;
-    modalidad: string;
+    Modalidad: string;
   }): Promise<void> {
-    const { id, materia, fecha, hora, modalidad } = data;
+    const {  Materia, fecha, Modalidad } = data;
+   
     //guarda la mesa en bdatos
     await pool.execute(
-      `INSERT INTO mesas_examen (id, materia, fecha, hora, modalidad)
-       VALUES (?, ?, ?, ?, ?)`,
-      [id, materia, fecha, hora, modalidad]
+      `INSERT INTO mesadeexamen ( Materia, fecha,  Modalidad)
+       VALUES (?, ?, ?)`,
+      [ Materia, fecha, Modalidad]
     );
   }
 }

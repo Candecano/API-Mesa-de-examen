@@ -1,4 +1,5 @@
-
+//logica validacion
+//validacion token
 import jwt from "jsonwebtoken";
 
 const SECRET = "secreto123"; 

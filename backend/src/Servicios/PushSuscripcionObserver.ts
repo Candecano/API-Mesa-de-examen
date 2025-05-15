@@ -1,7 +1,7 @@
 //observer- profesor suscripto a las notif (observador)
 //el profesor acepta recibir las notificaciones
 //el notificador de mesas (objeto) le avisa cuando hay un cambio o algo nuevo
-
+//maneja la suscripcion de clientes a las notificaciones
 
 import webpush from "web-push";
 import { Observer } from "./IObserver";

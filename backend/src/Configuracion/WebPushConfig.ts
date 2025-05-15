@@ -1,4 +1,6 @@
 //Singleton-Patron de una unica instancia
+
+//configuracion de claves vapid para las notificaciones
 import webPush from "web-push";
 class WebPushConfig{
 private static instance: WebPushConfig;

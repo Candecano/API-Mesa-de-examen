@@ -1,3 +1,4 @@
+//def rutas HTTP y las conecta con los controladores
 import { Router } from "express";
 import { login } from "./Controladores/AuthController"; // controlador que maneja el login
 import {

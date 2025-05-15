@@ -8,6 +8,7 @@ test('Inicio de sesion exitoso', async ({ page }) => {
    await page.fill('#username', 'profesor');
   await page.fill('#password', 'clave');
    await page.getByRole('button', { name: 'Ingresar' }).click();
+   await page.pause(); 
  
 });
 
@@ -36,6 +37,8 @@ test('redireccion de pagina', async ({ page }) => {
      await context.close();
     await browser.close();
 
+    await page.pause(); 
+
 
 });
 
@@ -55,5 +58,8 @@ await page.pause();
      await context.close();
     await browser.close();
 
+    await page.pause(); 
+
 
 });
+//npx playwright test e2e/Playwright.test.ts --project chromium --headed --debug (para ejecutar el inpector)

@@ -1,5 +1,7 @@
 //observer
 //sujeto observado-notifica a los observadores cuando hay una nueva mesa
+// observar eventos relacionados a la creacion de mesas
+
 import { Observer } from "./IObserver";
 import { PushSuscripcion } from "./PushSuscripcionObserver";
 import { MesaInfo} from "./NotificacionesPushObserver";

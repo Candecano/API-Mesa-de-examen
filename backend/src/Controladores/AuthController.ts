@@ -1,4 +1,5 @@
-
+//controladores de inicio de sesion
+//autenticaion de los profes
 import { Request, Response } from "express";
 import { AuthService } from "../Servicios/AuthService";
 

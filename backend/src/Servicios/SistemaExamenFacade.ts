@@ -1,4 +1,5 @@
-
+//Facade (SistemaExamenFacade) orquesta las llamadas
+//encapsula la logica de actualizar el estado de mesa
 import { MesaRepository } from "../Servicios/MesaRepository";
 import { RespuestaProfesorService } from "../Servicios/RespuestaProfesorService";
 import { NotificacionService } from "./NotificacionService";
@@ -23,10 +24,9 @@ export class SistemaExamenFacade {
 
   public async asignarMesa(mesa: {
     id: number;
-    materia: string;
+    Materia: string;
     fecha: string;
-    hora: string;
-    modalidad: string;
+    Modalidad: string;
   }): Promise<void> {
     await this.mesaRepo.crearMesa(mesa);
     await this.notificador.enviarNotificacion("Nueva mesa creada", mesa);

@@ -1,4 +1,6 @@
 import { Router, Request, Response } from "express";
+//lista de observadores gestionadas por el patron observer
+//gestiona suscripciones 
 import NotificacionPushService from "./Servicios/NotificacionesPushObserver";
 import { NotificacionService } from "./Servicios/NotificacionService";
 import { PushNotificationStrategy } from "./Servicios/PushStrategyA";

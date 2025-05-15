@@ -10,7 +10,7 @@ describe("SistemaExamenFacade", () => {
   const facade = new SistemaExamenFacade(repo, respuestaService, notificador);
 
   it("deberia asignar una mesa", async () => {
-    await facade.asignarMesa({ id: 1, materia: "Fisica", fecha: "2025-07-10", hora: "10:00", modalidad: "Virtual" });
+    await facade.asignarMesa({ id: 1, Materia: "Fisica", fecha: "2025-07-10", Modalidad: "Virtual" });
     expect(repo.crearMesa).toHaveBeenCalled();
     expect(notificador.enviarNotificacion).toHaveBeenCalled();
   });

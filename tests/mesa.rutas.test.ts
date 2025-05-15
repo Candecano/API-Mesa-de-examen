@@ -31,10 +31,9 @@ describe("Tests para las rutas de mesa", () => {
     const response = await request(app).post("/api/mesa/asignar").send({
       id: 1,
       profesor: 1,
-      materia: "Fisica",
+      Materia: "Fisica",
       fecha: "2025-07-10",
-      hora: "10:00",
-      modalidad: "Presencial"
+      Modalidad: "Presencial"
     });
 
     expect([200, 201]).toContain(response.status);

@@ -1,3 +1,5 @@
+//GestiondeMesas.ts actua como cliente
+//logica de las mesas  crear, responder, listar
 import { Request, Response } from "express";
 import { SistemaExamenFacade } from "../Servicios/SistemaExamenFacade";
 import { MesaInfo } from "../Servicios/NotificacionesPushObserver";
@@ -19,10 +21,9 @@ const facade = new SistemaExamenFacade(mesaRepo, respuestaService, notificador);
 export const asignarMesa = async (req: Request, res: Response) => {
   const mesa: {
     id: number;
-    materia: string;
+    Materia: string;
     fecha: string;
-    hora: string;
-    modalidad: string;
+    Modalidad: string;
   } = req.body;
 
   await facade.asignarMesa(mesa);
@@ -45,10 +46,10 @@ export const rechazarMesa = async (req: Request, res: Response) => {
 
 export const notificarMesaDePrueba = async (req: Request, res: Response) => {
   const payload = {
-    profesor: "Paulo Guzman",
-    materia: "Analisis Matematico",
+    Profesor: "Paulo Guzman",
+    Materia: "Analisis Matematico",
     fecha: "2025-06-25",
-    modalidad: "Presencial",
+    Modalidad: "Presencial",
   };
 
   const titulo = "Notificacion de prueba";

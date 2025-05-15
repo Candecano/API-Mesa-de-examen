@@ -1,3 +1,5 @@
+//Confi app e
+
 import express from "express";
 import rutas from "./rutas";
 import suscripcionesRouter from "./subscripciones";
@@ -5,7 +7,7 @@ import pool from "./Configuracion/db";
 import cors from "cors";
 
 
-async function testDBConnection() {
+export async function testDBConnection() {
   try {
     const [rows] = await pool.query("SELECT 1");
     console.log("Conexion a la base de datos exitosa.");
@@ -14,7 +16,7 @@ async function testDBConnection() {
   }
 }
 
-testDBConnection();
+
 
 const app = express();
 app.use(cors());

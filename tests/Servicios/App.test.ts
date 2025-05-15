@@ -1,7 +1,7 @@
-import app from "../../backend/src/App";
+import { testDBConnection } from '../../backend/src/App';
 
-describe("App", () => {
-  it("deberi­a inicializar sin errores", () => {
-    expect(app).toBeDefined();
+describe('App', () => {
+  it('debería inicializar sin errores', async () => {
+    await testDBConnection();
   });
 });
