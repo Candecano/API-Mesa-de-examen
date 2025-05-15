@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "express": "^5.1.0",
     "frontend": "file:",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -29,6 +30,7 @@
     "@types/istanbul-lib-coverage": "^2.0.6",
     "@types/istanbul-lib-report": "^3.0.3",
     "@types/istanbul-reports": "^3.0.4",
+    "@types/jest": "^29.5.14",
     "@types/methods": "^1.1.4",
     "@types/mime": "^3.0.4",
     "@types/node": "^22.15.17",
