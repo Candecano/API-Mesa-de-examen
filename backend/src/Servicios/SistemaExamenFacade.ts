@@ -5,9 +5,7 @@ import { RespuestaProfesorService } from "../Servicios/RespuestaProfesorService"
 import { NotificacionService } from "./NotificacionService";
 
 export class SistemaExamenFacade {
-  static confirmar(idProfesor: any, idMesa: any) {
-    throw new Error("Method not implemented.");
-  }
+
   private mesaRepo: MesaRepository;
   private respuestaService: RespuestaProfesorService;
   private notificador: NotificacionService;
