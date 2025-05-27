@@ -19,7 +19,7 @@ test('redireccion de pagina', async ({ page }) => {
 
    await page.fill('#username', 'profesor');
 
-  // Rellenar el campo de contraseña
+  
   await page.fill('#password', 'clave');
    await page.getByRole('button', { name: 'Ingresar' }).click();
   page.once('dialog', dialog => {
@@ -28,7 +28,6 @@ test('redireccion de pagina', async ({ page }) => {
   });
   await page.getByRole('button', { name: 'Suscribirse a Notificaciones' }).click();
 
-  // ---------------------
  await page.pause();
     const browser = await chromium.launch({
       headless: false
