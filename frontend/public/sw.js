@@ -1,9 +1,19 @@
 self.addEventListener("push", (event) => {
-  const data = event.data.json();
+  console.log(" EVENTO PUSH RECIBIDO:", event); // <-- ESTE ES EL CONSOLE.LOG
 
-  const title = data.title || "Notificacion de mesa";
+  let data = {};
+  try {
+    data = event.data.json();
+  } catch (e) {
+    data = {
+      title: "Notificación",
+      body: event.data.text()
+    };
+  }
+
+  const title = data.title || "Notificación de mesa";
   const options = {
-    body: `${data.materia} - ${data.fecha} (${data.modalidad})`,
+    body: data.body || `${data.materia} - ${data.fecha} (${data.modalidad})`,
     icon: "/icon.png",
   };
 
