@@ -1,5 +1,5 @@
-self.addEventListener("push", (event) => {
-  console.log(" EVENTO PUSH RECIBIDO:", event); // <-- ESTE ES EL CONSOLE.LOG
+/* self.addEventListener("push", (event) => {
+  console.log("📥 EVENTO PUSH RECIBIDO:", event);
 
   let data = {};
   try {
@@ -7,14 +7,30 @@ self.addEventListener("push", (event) => {
   } catch (e) {
     data = {
       title: "Notificación",
-      body: event.data.text()
+      body: event.data?.text() || "Sin contenido"
     };
   }
 
+  console.log("📦 Datos recibidos:", data);
+
   const title = data.title || "Notificación de mesa";
   const options = {
-    body: data.body || `${data.materia} - ${data.fecha} (${data.modalidad})`,
-    icon: "/icon.png",
+    body: data.body || "Nueva notificación",
+    icon: "/icon.png", // asegurate que este archivo exista
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+*/
+self.addEventListener("push", function(event) {
+  console.log("📥 PUSH RECIBIDO");
+
+  const title = "🚨 Notificación directa";
+  const options = {
+    body: "Esto es un mensaje simple",
+    icon: "https://cdn-icons-png.flaticon.com/512/545/545705.png"
   };
 
   event.waitUntil(
