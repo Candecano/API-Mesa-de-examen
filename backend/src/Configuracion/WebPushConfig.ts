@@ -1,6 +1,7 @@
 //Singleton-Patron de una unica instancia
 
 //configuracion de claves vapid para las notificaciones
+const webpush = require("web-push");
 import webPush from "web-push";
 class WebPushConfig{
 private static instance: WebPushConfig;
@@ -28,5 +29,5 @@ return WebPushConfig.instance;
   }
 
 }
-
+module.exports = webpush;
 export default WebPushConfig;

@@ -44,12 +44,48 @@ const ExamNotificationsPage: React.FC = () => {
     setNotificaciones(datos);
   }, []);
 
-  const handleConfirm = (id: string) => {
-    alert(`Confirmaste la mesa con ID ${id}`);
+  const handleConfirm = async (id: string) => {
+    try {
+      const idProfesor = username;
+      const response = await fetch("http://localhost:3000/api/mesa/confirmar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ idProfesor, idMesa: id })
+      });
+      if (response.ok) {
+        setNotificaciones((prev) => prev.filter((n) => n.id !== id));
+        alert("Asistencia registrada correctamente");
+      } else {
+        const data = await response.json();
+        alert("Error al registrar asistencia: " + (data.mensaje || response.statusText));
+      }
+    } catch (error) {
+      alert("Error de red al registrar asistencia");
+    }
   };
 
-  const handleReject = (id: string) => {
-    alert(`Rechazaste la mesa con ID ${id}`);
+  const handleReject = async (id: string) => {
+    try {
+      const idProfesor = username;
+      const response = await fetch("http://localhost:3000/api/mesa/rechazar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ idProfesor, idMesa: id })
+      });
+      if (response.ok) {
+        setNotificaciones((prev) => prev.filter((n) => n.id !== id));
+        alert("Inasistencia registrada correctamente");
+      } else {
+        const data = await response.json();
+        alert("Error al registrar Inasistencia: " + (data.mensaje || response.statusText));
+      }
+    } catch (error) {
+      alert("Error de red al registrar Inasistencia");
+    }
   };
 
   const handleLogoutClick = () => {
