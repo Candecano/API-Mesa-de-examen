@@ -1,18 +1,31 @@
-//controladores de inicio de sesion
-//autenticaion de los profes
 import { Request, Response } from "express";
 import { AuthService } from "../Servicios/AuthService";
 
 const authService = new AuthService();
 
-export const login = (req: Request, res: Response): void => {
-  const { email, password } = req.body;
-  const token = authService.login(email, password);
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const { usuario, clave } = req.body;
 
-  if (!token) {
-    res.status(401).json({ mensaje: "Credenciales invalidas" });
-    return;
+  try {
+const userData = await authService.login(usuario, clave) as {
+  usuario: string;
+  idProfesor: number;
+  token: string;
+};
+
+    if (!userData) {
+      res.status(401).json({ mensaje: "Credenciales inválidas" });
+      return;
+    }
+
+    // devolvés los datos útiles al frontend
+    res.json({
+      usuario: userData.usuario,
+      idProfesor: userData.idProfesor,
+      token: userData.token // solo si querés usarlo en headers
+    });
+  } catch (error) {
+    console.error("Error en login:", error);
+    res.status(500).json({ mensaje: "Error interno del servidor" });
   }
-
-  res.json({ token });
 };

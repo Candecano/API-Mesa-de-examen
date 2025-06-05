@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface LoginPageProps {
-  onLogin: (username: string) => void;
+  onLogin: (username: string, idProfesor: number) => void;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
@@ -10,19 +10,38 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (username === 'profesor' && password === 'clave') {
-      onLogin(username);
-      navigate('/examenes');
-    } else {
-      alert('Credenciales incorrectas');
+
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          usuario: username,
+          clave: password
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Suponemos que el backend responde con: { usuario: 'usuario104', idProfesor: 104 }
+        onLogin(data.usuario, data.idProfesor);
+        navigate('/examenes');
+      } else {
+        alert("Credenciales incorrectas");
+      }
+    } catch (error) {
+      alert("Error de red al intentar iniciar sesión");
+      console.error(error);
     }
   };
 
   return (
     <div>
-      <h2>Iniciar Sesion</h2>
+      <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Usuario:</label>

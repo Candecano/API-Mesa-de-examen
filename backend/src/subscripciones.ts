@@ -36,10 +36,10 @@ router.post("/notificar", async (req: Request, res: Response) => {
 
   try {
     await notificador.enviarNotificacion("📢 Notificación manual", payload);
-    console.log("✅ Notificación enviada con éxito.");
+    console.log("Notificación enviada con éxito.");
     res.status(200).json({ mensaje: "Notificación enviada correctamente" });
   } catch (error: any) {
-    console.error("❌ Error al enviar notificación:", error?.message || error);
+    console.error("Error al enviar notificación:", error?.message || error);
     res.status(500).json({ mensaje: "Falló el envío de la notificación" });
   }
 });

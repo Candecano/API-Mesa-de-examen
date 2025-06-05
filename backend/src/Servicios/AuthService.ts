@@ -1,21 +1,25 @@
-//logica validacion
-//validacion token
 import jwt from "jsonwebtoken";
+import pool from "../Configuracion/db";
 
-const SECRET = "secreto123"; 
-
-// usuarios en memoria (simulacion)
-const usuarios = [
-  { email: "profesor@ucp.edu.ar", password: "1234" },
-];
+const SECRET = "secreto123";
 
 export class AuthService {
-  login(email: string, password: string): string | null {
-    const usuario = usuarios.find(u => u.email === email && u.password === password);
-    if (!usuario) return null;
+  async login(usuario: string, clave: string): Promise<{ idProfesor: number; usuario: string; token: string } | null> {
+    const [rows]: any = await pool.query(
+      "SELECT idProfesor, usuario FROM profesor WHERE usuario = ? AND clave = ?",
+      [usuario, clave]
+    );
 
-    // crear token
-    return jwt.sign({ email: usuario.email }, SECRET, { expiresIn: "1h" });
+    if (rows.length === 0) return null;
+
+    const profesor = rows[0];
+    const token = jwt.sign({ idProfesor: profesor.idProfesor, usuario: profesor.usuario }, SECRET, { expiresIn: "1h" });
+
+    return {
+      idProfesor: profesor.idProfesor,
+      usuario: profesor.usuario,
+      token
+    };
   }
 
   verificar(token: string): any | null {

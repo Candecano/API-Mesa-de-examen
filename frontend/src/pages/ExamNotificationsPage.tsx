@@ -1,90 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import ExamNotificationCard from '../componentes/ExamNotificationCard';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/AuthContext'; // Asegurate de usar el contexto nuevo
-
-interface ExamNotification {
-  id: string;
-  materia: string;
-  fecha: string;
-  hora: string;
-  ubicacion: string;
-}
+import { useAuth } from '../hooks/AuthContext';
+import { obtenerMesas, confirmarMesa, rechazarMesa, Mesa } from '../api/mesas';
 
 const ExamNotificationsPage: React.FC = () => {
-  const [notificaciones, setNotificaciones] = useState<ExamNotification[]>([]);
-  const { logout, username } = useAuth();
+  const [notificaciones, setNotificaciones] = useState<Mesa[]>([]);
+  const { logout, username, idProfesor } = useAuth(); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulación de datos
-    const datos = [
-      {
-        id: '1',
-        materia: 'Matemática',
-        fecha: '2025-06-01',
-        hora: '10:00',
-        ubicacion: 'Aula 101',
-      },
-      {
-        id: '2',
-        materia: 'Física',
-        fecha: '2025-06-02',
-        hora: '14:00',
-        ubicacion: 'Aula 202',
-      },
-      {
-        id: '3',
-        materia: 'Programación',
-        fecha: '2025-06-03',
-        hora: '08:00',
-        ubicacion: 'Aula 303',
-      },
-    ];
-    setNotificaciones(datos);
-  }, []);
-
-  const handleConfirm = async (id: string) => {
-    try {
-      const idProfesor = username;
-      const response = await fetch("http://localhost:3000/api/mesa/confirmar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ idProfesor, idMesa: id })
-      });
-      if (response.ok) {
-        setNotificaciones((prev) => prev.filter((n) => n.id !== id));
-        alert("Asistencia registrada correctamente");
-      } else {
-        const data = await response.json();
-        alert("Error al registrar asistencia: " + (data.mensaje || response.statusText));
+    const fetchMesas = async () => {
+      try {
+        if (!idProfesor) return;
+        const mesas = await obtenerMesas(idProfesor);
+        setNotificaciones(mesas);
+      } catch (error) {
+        console.error("Error al obtener mesas", error);
       }
-    } catch (error) {
-      alert("Error de red al registrar asistencia");
+    };
+
+    fetchMesas();
+  }, [idProfesor]);
+
+  const handleConfirm = async (id: number) => {
+    try {
+      await confirmarMesa(id);
+      setNotificaciones(prev => prev.filter(n => n.idMesa !== id));
+      alert("Asistencia registrada correctamente");
+    } catch {
+      alert("Error al registrar asistencia");
     }
   };
 
-  const handleReject = async (id: string) => {
+  const handleReject = async (id: number) => {
     try {
-      const idProfesor = username;
-      const response = await fetch("http://localhost:3000/api/mesa/rechazar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ idProfesor, idMesa: id })
-      });
-      if (response.ok) {
-        setNotificaciones((prev) => prev.filter((n) => n.id !== id));
-        alert("Inasistencia registrada correctamente");
-      } else {
-        const data = await response.json();
-        alert("Error al registrar Inasistencia: " + (data.mensaje || response.statusText));
-      }
-    } catch (error) {
-      alert("Error de red al registrar Inasistencia");
+      await rechazarMesa(id);
+      setNotificaciones(prev => prev.filter(n => n.idMesa !== id));
+      alert("Inasistencia registrada correctamente");
+    } catch {
+      alert("Error al registrar inasistencia");
     }
   };
 
@@ -109,14 +64,24 @@ const ExamNotificationsPage: React.FC = () => {
         Suscribirse a Notificaciones
       </button>
 
-      {notificaciones.map((n) => (
-        <ExamNotificationCard
-          key={n.id}
-          notification={n}
-          onConfirm={handleConfirm}
-          onReject={handleReject}
-        />
-      ))}
+      {notificaciones.length === 0 ? (
+        <p>No hay mesas asignadas.</p>
+      ) : (
+        notificaciones.map(n => (
+          <ExamNotificationCard
+            key={n.idMesa}
+            notification={{
+              id: n.idMesa.toString(),
+              materia: n.Materia,
+              fecha: new Date(n.fecha).toISOString().split("T")[0],
+              hora: new Date(n.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              ubicacion: `Aula ${n.idMesa}`
+            }}
+            onConfirm={() => handleConfirm(n.idMesa)}
+            onReject={() => handleReject(n.idMesa)}
+          />
+        ))
+      )}
     </div>
   );
 };
