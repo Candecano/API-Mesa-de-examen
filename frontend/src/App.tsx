@@ -7,8 +7,7 @@ import { useAuth } from "./hooks/AuthContext";
 const clavePublica = "BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
 
 function App() {
-  const { isAuthenticated, login } = useAuth();
-
+  const { isAuthenticated, login, idProfesor } = useAuth(); 
   useEffect(() => {
     const registrarServiceWorkerYSubscribirse = async () => {
       if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -35,10 +34,14 @@ function App() {
 
           console.log("📨 Suscripción generada:", JSON.stringify(nuevaSuscripcion));
 
+          // Enviamos la suscripción junto al ID del profesor
           const response = await fetch("http://localhost:3000/api/subscripciones", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(nuevaSuscripcion),
+            body: JSON.stringify({
+              idProfesor,                  // <- esto es lo importante
+              subscription: nuevaSuscripcion
+            }),
           });
 
           if (response.ok) {
@@ -53,7 +56,7 @@ function App() {
     };
 
     registrarServiceWorkerYSubscribirse();
-  }, []);
+  }, [idProfesor]); // Dependencia
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);

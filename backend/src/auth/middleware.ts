@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-const SECRET = "secreto123"; // o process.env.JWT_SECRET
+const SECRET = "secreto123"; 
 
 export function authMiddleware(
   req: Request,
