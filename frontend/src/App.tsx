@@ -4,11 +4,19 @@ import LoginPage from "./componentes/Auth/LoginPage";
 import ExamNotificationsPage from "./pages/ExamNotificationsPage";
 import { useAuth } from "./hooks/AuthContext";
 
-const clavePublica = "BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
+const clavePublica = " BNtSA1NGMwZYO_1ajvn9UQM7QoPlB5ECCHlPGBTorlFngtKG-GEyk1xeh60GeFzP7zH9rIusN02_MpZ1Jg6iSZo";
 
 function App() {
-  const { isAuthenticated, login, idProfesor } = useAuth(); 
+  const { isAuthenticated, login, idProfesor } = useAuth();
+
   useEffect(() => {
+    console.log("🧪 useEffect ejecutado con idProfesor =", idProfesor);
+
+    if (!idProfesor) {
+      console.warn("⚠️ idProfesor no está disponible, no se puede suscribir");
+      return;
+    }
+
     const registrarServiceWorkerYSubscribirse = async () => {
       if ("serviceWorker" in navigator && "PushManager" in window) {
         try {
@@ -24,6 +32,20 @@ function App() {
           const existingSubscription = await reg.pushManager.getSubscription();
           if (existingSubscription) {
             console.log("🔄 Ya existe una suscripción activa.");
+            // ENVÍA la suscripción existente al backend
+            const response = await fetch("http://localhost:3000/api/subscripciones", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                idProfesor,
+                subscription: existingSubscription,
+              }),
+            });
+            if (response.ok) {
+              console.log("📬 Suscripción existente enviada al backend con éxito");
+            } else {
+              console.error("❌ Falló el envío de la suscripción existente al backend:", response.status);
+            }
             return;
           }
 
@@ -33,14 +55,14 @@ function App() {
           });
 
           console.log("📨 Suscripción generada:", JSON.stringify(nuevaSuscripcion));
+          console.log("👤 Enviando suscripción con idProfesor =", idProfesor);
 
-          // Enviamos la suscripción junto al ID del profesor
           const response = await fetch("http://localhost:3000/api/subscripciones", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              idProfesor,                  // <- esto es lo importante
-              subscription: nuevaSuscripcion
+              idProfesor,
+              subscription: nuevaSuscripcion,
             }),
           });
 
@@ -56,7 +78,7 @@ function App() {
     };
 
     registrarServiceWorkerYSubscribirse();
-  }, [idProfesor]); // Dependencia
+  }, [idProfesor]);
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);

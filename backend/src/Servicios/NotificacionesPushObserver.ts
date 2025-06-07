@@ -6,9 +6,9 @@ import { NotificadorMesas } from "./NotificadorMesasObserver";
 // Informacion que se le pasa a los observadores cuando ocurre un evento
 export interface MesaInfo {
   profesor: number;
-  materia: string;
+  Materia: string;
   fecha: string;
-  modalidad: string;
+  Modalidad: string;
 }
 
 // Sujeto observado  maneja las suscripciones y notificaciones

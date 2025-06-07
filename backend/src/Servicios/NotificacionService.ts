@@ -1,4 +1,3 @@
-
 import { INotificacionStrategy } from "./INotificacionStrategy";
 
 export class NotificacionService {
@@ -8,12 +7,10 @@ export class NotificacionService {
     this.estrategia = estrategia;
   }
 
- 
   setEstrategia(estrategia: INotificacionStrategy): void {
     this.estrategia = estrategia;
   }
 
-  //  envío a la estrategia configurada
   async enviarNotificacion(titulo: string, payload: any): Promise<void> {
     const idProfesor = payload.profesor || payload.idProfesor;
 
@@ -22,8 +19,13 @@ export class NotificacionService {
       return;
     }
 
-    const mensaje = `${titulo}: ${JSON.stringify(payload)}`;
-
+    // ✅ Enviamos los campos con nombres correctos para el observer
+    const mensaje = JSON.stringify({
+      title: titulo,
+      materia: payload.Materia || "Sin materia",
+      fecha: payload.fecha || "Sin fecha",
+      modalidad: payload.Modalidad || "Sin modalidad"
+    });
     await this.estrategia.enviarNotificacion(idProfesor, mensaje);
   }
 }

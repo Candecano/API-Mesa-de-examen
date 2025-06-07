@@ -1,39 +1,31 @@
-/* self.addEventListener("push", (event) => {
-  console.log("📥 EVENTO PUSH RECIBIDO:", event);
+self.addEventListener("push", (event) => {
+  console.log("📥 PUSH recibido");
 
-  let data = {};
+  let data = {
+    title: "📢 Notificación",
+    body: "Tienes una nueva notificación",
+  };
+
   try {
-    data = event.data.json();
+    if (event.data) {
+      const parsedData = event.data.json();
+      data.title = parsedData.title || data.title;
+      data.body = parsedData.body || data.body;
+    }
   } catch (e) {
-    data = {
-      title: "Notificación",
-      body: event.data?.text() || "Sin contenido"
-    };
+    console.error("❌ Error al parsear el evento:", e);
   }
 
-  console.log("📦 Datos recibidos:", data);
-
-  const title = data.title || "Notificación de mesa";
   const options = {
-    body: data.body || "Nueva notificación",
-    icon: "/icon.png", // asegurate que este archivo exista
+    body: data.body,
+    icon: "https://cdn-icons-png.flaticon.com/512/545/545705.png",
+    data: data,
   };
 
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
+  event.waitUntil(self.registration.showNotification(data.title, options));
 });
-*/
-self.addEventListener("push", function(event) {
-  console.log("📥 PUSH RECIBIDO");
 
-  const title = "🚨 Notificación directa";
-  const options = {
-    body: "Esto es un mensaje simple",
-    icon: "https://cdn-icons-png.flaticon.com/512/545/545705.png"
-  };
-
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(clients.openWindow("http://localhost:5173/examenes"));
 });
