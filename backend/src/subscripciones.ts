@@ -1,47 +1,26 @@
-import { Router, Request, Response } from "express";
-import NotificacionPushService from "./Servicios/NotificacionesPushObserver";
-import { NotificacionService } from "./Servicios/NotificacionService";
-import { PushNotificationStrategy } from "./Servicios/PushStrategyA";
 
-const router = Router();
+interface SuscripcionPorProfesor {
+  idProfesor: number;
+  subscription: PushSubscription;
+}
 
-const estrategia = new PushNotificationStrategy();
-const notificador = new NotificacionService(estrategia);
+export const subscripciones: SuscripcionPorProfesor[] = [];
 
-// 👉 Registrar nueva suscripción
-router.post("/", (req: Request, res: Response): void => {
-  const suscripcion = req.body;
+// nueva suscripción asociada a un profesor
+export function registrarSuscripcion(idProfesor: number, subscription: PushSubscription): void {
+  const yaRegistrada = subscripciones.find(
+    (s) => s.idProfesor === idProfesor && JSON.stringify(s.subscription) === JSON.stringify(subscription)
+  );
 
-  if (!suscripcion || !suscripcion.endpoint) {
-    console.warn("⚠️ Suscripción inválida recibida:", suscripcion);
-    res.status(400).json({ message: "Suscripción inválida" });
-    return;
+  if (!yaRegistrada) {
+    subscripciones.push({ idProfesor, subscription });
+    console.log(`📌 Suscripción registrada para profesor ${idProfesor}`);
   }
+}
 
-  NotificacionPushService.agregarSuscripcion(suscripcion);
-  console.log("✅ Suscripción registrada:", suscripcion.endpoint);
-  res.status(201).json({ message: "Suscripción registrada con éxito" });
-});
-
-// 👉 Enviar notificación manual
-router.post("/notificar", async (req: Request, res: Response) => {
-  const { profesor, materia, fecha, modalidad } = req.body;
-
-  const payload = JSON.stringify({
-    title: "📢 Notificación manual",
-    body: `Profesor: ${profesor}\nMateria: ${materia}\nFecha: ${fecha}\nModalidad: ${modalidad}`,
-  });
-
-  console.log("📤 Enviando notificación a profesor:", profesor);
-
-  try {
-    await notificador.enviarNotificacion("📢 Notificación manual", payload);
-    console.log("Notificación enviada con éxito.");
-    res.status(200).json({ mensaje: "Notificación enviada correctamente" });
-  } catch (error: any) {
-    console.error("Error al enviar notificación:", error?.message || error);
-    res.status(500).json({ mensaje: "Falló el envío de la notificación" });
-  }
-});
-
-export default router;
+// todas las suscripciones asociadas a un profesor
+export function obtenerSuscripcionesPorProfesor(idProfesor: number): PushSubscription[] {
+  return subscripciones
+    .filter((s) => s.idProfesor === idProfesor)
+    .map((s) => s.subscription);
+}

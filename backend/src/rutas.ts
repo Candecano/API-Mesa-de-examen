@@ -6,7 +6,7 @@ import {
   notificarMesaDePrueba,
   rechazarMesa as rechazar
 } from "./Controladores/GestiondeMesas";
-import subscripcionesRouter from "./subscripciones";
+import subscripcionesRouter from "./suscripcionesRouter";
 import mesasRouter from "./Controladores/Mesas"; 
 
 const router = Router();

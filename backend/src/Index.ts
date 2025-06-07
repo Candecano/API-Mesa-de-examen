@@ -6,15 +6,15 @@ import pool from "./Configuracion/db";
 
 // Rutas
 import rutas from "./rutas";
-import suscripcionesRouter from "./subscripciones";
+import suscripcionesRouter from "./suscripcionesRouter"; 
 import mesasRoutes from "./Controladores/Mesas";
 
 async function testDBConnection() {
   try {
     const [rows] = await pool.query("SELECT 1");
-    console.log("✅ Conexión a la base de datos exitosa.");
+    console.log(" Conexion a la base de datos exitosa.");
   } catch (error) {
-    console.error("❌ Error al conectar con la base de datos:", error);
+    console.error(" Error al conectar con la base de datos:", error);
   }
 }
 

@@ -1,12 +1,11 @@
 import { Router, Request, Response } from "express";
 import NotificacionPushService from "../Servicios/NotificacionesPushObserver";
 import { MesaInfo } from "../Servicios/NotificacionesPushObserver";
-import { MesaRepository } from "../Servicios/MesaRepository"; // nuevo import
+import { MesaRepository } from "../Servicios/MesaRepository"; 
 
 const router = Router();
-const mesaRepo = new MesaRepository(); // instanciamos el repositorio
-
-// 🔔 POST: Crear una nueva mesa y notificar
+const mesaRepo = new MesaRepository(); 
+//  POST: Crear una nueva mesa y notificar
 router.post("/Mesas", async (req: Request, res: Response): Promise<void> => {
   const { profesor, materia, fecha, modalidad } = req.body;
 
@@ -25,7 +24,7 @@ router.post("/Mesas", async (req: Request, res: Response): Promise<void> => {
   try {
     NotificacionPushService.notify(nuevaMesa);
     console.log(" Mesa creada y notificada:", nuevaMesa);
-    res.status(201).json({ mensaje: "Mesa creada con éxito", mesa: nuevaMesa });
+    res.status(201).json({ mensaje: "Mesa creada con exito", mesa: nuevaMesa });
   } catch (error: any) {
     console.error(" Error al notificar:", error?.message || error);
     res.status(500).json({ mensaje: "Error al crear la mesa o notificar" });

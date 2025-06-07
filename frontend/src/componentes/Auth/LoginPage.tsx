@@ -27,14 +27,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
       if (response.ok) {
         const data = await response.json();
-        // Suponemos que el backend responde con: { usuario: 'usuario104', idProfesor: 104 }
+        // el backend responde con:  usuario: usuario104 idProfesor: 104  ejemplo
         onLogin(data.usuario, data.idProfesor);
         navigate('/examenes');
       } else {
         alert("Credenciales incorrectas");
       }
     } catch (error) {
-      alert("Error de red al intentar iniciar sesión");
+      alert("Error de red al intentar iniciar sesion");
       console.error(error);
     }
   };

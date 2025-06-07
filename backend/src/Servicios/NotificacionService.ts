@@ -1,3 +1,4 @@
+
 import { INotificacionStrategy } from "./INotificacionStrategy";
 
 export class NotificacionService {
@@ -7,12 +8,19 @@ export class NotificacionService {
     this.estrategia = estrategia;
   }
 
-  setEstrategia(estrategia: INotificacionStrategy) {
+ 
+  setEstrategia(estrategia: INotificacionStrategy): void {
     this.estrategia = estrategia;
   }
 
+  //  envío a la estrategia configurada
   async enviarNotificacion(titulo: string, payload: any): Promise<void> {
-    const idProfesor = payload.profesor || payload.profesorId;
+    const idProfesor = payload.profesor || payload.idProfesor;
+
+    if (!idProfesor) {
+      console.warn("⚠️ Profesor no especificado en el payload. No se puede enviar la notificación.");
+      return;
+    }
 
     const mensaje = `${titulo}: ${JSON.stringify(payload)}`;
 

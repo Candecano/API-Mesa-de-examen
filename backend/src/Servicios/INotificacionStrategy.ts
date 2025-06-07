@@ -5,3 +5,4 @@
 export interface INotificacionStrategy{
       enviarNotificacion(idProfesor: number, mensaje: string): Promise<void>;
 }
+

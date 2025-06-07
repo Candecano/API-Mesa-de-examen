@@ -14,15 +14,15 @@ const userData = await authService.login(usuario, clave) as {
 };
 
     if (!userData) {
-      res.status(401).json({ mensaje: "Credenciales inválidas" });
+      res.status(401).json({ mensaje: "Credenciales invalidas" });
       return;
     }
 
-    // devolvés los datos útiles al frontend
+    //datos para el fornt
     res.json({
       usuario: userData.usuario,
       idProfesor: userData.idProfesor,
-      token: userData.token // solo si querés usarlo en headers
+      token: userData.token
     });
   } catch (error) {
     console.error("Error en login:", error);
