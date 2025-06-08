@@ -15,8 +15,8 @@ export function registrarSuscripcion(idProfesor: number, subscription: PushSubsc
 
   if (!yaRegistrada) {
     subscripciones.push({ idProfesor, subscription });
-    console.log(`📌 Suscripción registrada para profesor ${idProfesor}`);
-    console.log("🔎 Subscripciones actuales:", JSON.stringify(subscripciones, null, 2));
+    console.log(`Suscripcion registrada para profesor ${idProfesor}`);
+    console.log("Subscripciones actuales:", JSON.stringify(subscripciones, null, 2));
     // Agrega la suscripción como observador al patrón Observer:
     NotificacionPushService.agregarSuscripcion(subscription);
   }

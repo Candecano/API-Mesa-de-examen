@@ -1,9 +1,9 @@
 self.addEventListener("push", (event) => {
-  console.log("📥 PUSH recibido");
+  console.log("PUSH recibido");
 
   let data = {
-    title: "📢 Notificación",
-    body: "Tienes una nueva notificación",
+    title: "Notificacion",
+    body: "Tienes una nueva notificacion",
   };
 
   try {
@@ -13,7 +13,7 @@ self.addEventListener("push", (event) => {
       data.body = parsedData.body || data.body;
     }
   } catch (e) {
-    console.error("❌ Error al parsear el evento:", e);
+    console.error("Error al parsear el evento:", e);
   }
 
   const options = {

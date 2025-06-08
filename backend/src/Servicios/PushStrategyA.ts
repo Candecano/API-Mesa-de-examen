@@ -1,11 +1,11 @@
-// ConcreteStrategy: PushNotificationStrategy
+
 
 import { INotificacionStrategy } from "./INotificacionStrategy";
 import NotificacionPushService, { MesaInfo } from "./NotificacionesPushObserver";
 
 export class PushNotificationStrategy implements INotificacionStrategy {
   async enviarNotificacion(idProfesor: number, mensaje: string): Promise<void> {
-    //  se trata de reconstruir los datos desde el mensaje JSON si es posible
+    
     let mesa: MesaInfo;
 
     try {

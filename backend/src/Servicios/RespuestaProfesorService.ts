@@ -27,7 +27,7 @@ export class RespuestaProfesorService {
       this.respuestas.push({ profesorId, mesaId, acepta });
     }
   }
-//para consultar si el profesor acepta o no c true o false
+//para consultar si el profesor acepta o no
   obtener(profesorId: string, mesaId: string): boolean | undefined {
     return this.respuestas.find(
       (r) => r.profesorId === profesorId && r.mesaId === mesaId

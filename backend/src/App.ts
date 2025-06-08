@@ -1,8 +1,7 @@
-//Confi app e
 
 import express from "express";
 import rutas from "./rutas";
-import suscripcionesRouter from "./subscripciones";
+import suscripcionesRouter from "./suscripcionesRouter";
 import pool from "./Configuracion/db";
 import cors from "cors";
 

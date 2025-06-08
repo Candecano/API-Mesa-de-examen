@@ -10,10 +10,10 @@ function App() {
   const { isAuthenticated, login, idProfesor } = useAuth();
 
   useEffect(() => {
-    console.log("🧪 useEffect ejecutado con idProfesor =", idProfesor);
+    console.log("useEffect ejecutado con idProfesor =", idProfesor);
 
     if (!idProfesor) {
-      console.warn("⚠️ idProfesor no está disponible, no se puede suscribir");
+      console.warn("idProfesor no está disponible, no se puede suscribir");
       return;
     }
 
@@ -21,18 +21,18 @@ function App() {
       if ("serviceWorker" in navigator && "PushManager" in window) {
         try {
           const reg = await navigator.serviceWorker.register("/sw.js");
-          console.log("✅ Service Worker registrado:", reg);
+          console.log("Service Worker registrado:", reg);
 
           const permiso = await Notification.requestPermission();
           if (permiso !== "granted") {
-            console.warn("❌ Permiso para notificaciones denegado");
+            console.warn("Permiso para notificaciones denegado");
             return;
           }
 
           const existingSubscription = await reg.pushManager.getSubscription();
           if (existingSubscription) {
-            console.log("🔄 Ya existe una suscripción activa.");
-            // ENVÍA la suscripción existente al backend
+            console.log("Ya existe una suscripción activa.");
+            // envia la suscripcion existente al backend
             const response = await fetch("http://localhost:3000/api/subscripciones", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -42,9 +42,9 @@ function App() {
               }),
             });
             if (response.ok) {
-              console.log("📬 Suscripción existente enviada al backend con éxito");
+              console.log("Suscripcion existente enviada al backend con exito");
             } else {
-              console.error("❌ Falló el envío de la suscripción existente al backend:", response.status);
+              console.error("Fallo el envio de la suscripcion existente al backend:", response.status);
             }
             return;
           }
@@ -54,8 +54,8 @@ function App() {
             applicationServerKey: urlBase64ToUint8Array(clavePublica),
           });
 
-          console.log("📨 Suscripción generada:", JSON.stringify(nuevaSuscripcion));
-          console.log("👤 Enviando suscripción con idProfesor =", idProfesor);
+          console.log("Suscripcion generada:", JSON.stringify(nuevaSuscripcion));
+          console.log("Enviando suscripcion con idProfesor =", idProfesor);
 
           const response = await fetch("http://localhost:3000/api/subscripciones", {
             method: "POST",
@@ -67,12 +67,12 @@ function App() {
           });
 
           if (response.ok) {
-            console.log("📬 Suscripción enviada al backend con éxito");
+            console.log("Suscripcion enviada al backend con éxito");
           } else {
-            console.error("❌ Falló el envío de la suscripción al backend:", response.status);
+            console.error("Fallo el envio de la suscripcion al backend:", response.status);
           }
         } catch (err) {
-          console.error("🔥 Error durante el registro de SW o la suscripción:", err);
+          console.error("Error durante el registro de SW o la suscripcion:", err);
         }
       }
     };

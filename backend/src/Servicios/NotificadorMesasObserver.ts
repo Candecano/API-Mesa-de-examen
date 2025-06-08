@@ -8,13 +8,13 @@ import { MesaInfo } from "./NotificacionesPushObserver";
 export class NotificadorMesas {
   private observers: Observer[] = [];
 
-  // Agregar un nuevo observador (suscripcion push)
+  
   attach(observer: Observer): void {
     this.observers.push(observer);
     console.log("Observador agregado. Total de observadores nuevos:", this.observers.length);
   }
 
-  // Quitar un observador 
+
   detach(observer: Observer): void {
     this.observers = this.observers.filter((obs) => obs !== observer);
     console.log("Observador eliminado. Total de observadores que quedan:", this.observers.length);
@@ -35,7 +35,7 @@ export class NotificadorMesas {
     });
   }
 
-  // suscripcion desde el frontend observador nuevo
+ 
   agregarSuscripcion(subscription: any): void {
     const suscriptor = new PushSuscripcion(subscription);
     this.attach(suscriptor);
