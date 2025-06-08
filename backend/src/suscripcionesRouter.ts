@@ -24,13 +24,13 @@ router.post("/", (req: Request, res: Response): void => {
 
 // Ruta para enviar notificación manual
 router.post("/notificar", async (req: Request, res: Response) => {
-  const { profesor, materia, fecha, modalidad } = req.body;
+  const { profesor, Materia, fecha, Modalidad } = req.body;
 
   const payload = {
     profesor,
-    materia,
+    Materia,
     fecha,
-    modalidad,
+    Modalidad,
   };
 
   try {

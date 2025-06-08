@@ -12,16 +12,16 @@ export class PushNotificationStrategy implements INotificacionStrategy {
       const parsed = JSON.parse(mensaje.split(": ")[1]);
       mesa = {
         profesor: idProfesor,
-        materia: parsed.materia || "Materia no especificada",
+        Materia: parsed.materia || "Materia no especificada",
         fecha: parsed.fecha || new Date().toISOString(),
-        modalidad: parsed.modalidad || "Sin modalidad",
+        Modalidad: parsed.modalidad || "Sin modalidad",
       };
     } catch {
       mesa = {
         profesor: idProfesor,
-        materia: "(Sin materia)",
+        Materia: "(Sin materia)",
         fecha: new Date().toISOString(),
-        modalidad: "(Sin modalidad)",
+        Modalidad: "(Sin modalidad)",
       };
     }
 

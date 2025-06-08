@@ -7,18 +7,18 @@ const router = Router();
 const mesaRepo = new MesaRepository(); 
 //  POST: Crear una nueva mesa y notificar
 router.post("/Mesas", async (req: Request, res: Response): Promise<void> => {
-  const { profesor, materia, fecha, modalidad } = req.body;
+  const { profesor, Materia, fecha, Modalidad } = req.body;
 
-  if (!profesor || !materia || !fecha || !modalidad) {
+  if (!profesor || !Materia || !fecha || !Modalidad) {
     res.status(400).json({ mensaje: "Faltan campos obligatorios" });
     return;
   }
 
   const nuevaMesa: MesaInfo = {
     profesor,
-    materia,
+    Materia,
     fecha,
-    modalidad
+    Modalidad
   };
 
   try {

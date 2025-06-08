@@ -5,7 +5,7 @@ interface ExamNotification {
   materia: string;
   fecha: string;
   hora: string;
-  ubicacion: string;
+  modalidad: string;
 }
 
 interface ExamNotificationCardProps {
@@ -24,7 +24,7 @@ const ExamNotificationCard: React.FC<ExamNotificationCardProps> = ({
       <h3>{notification.materia}</h3>
       <p><strong>Hora:</strong> {notification.hora}</p>
       <p><strong>Fecha:</strong> {notification.fecha}</p>
-      <p><strong>Ubicación:</strong> {notification.ubicacion}</p>
+      <p><strong>Modalidad:</strong> {notification.modalidad}</p>
       <button
         onClick={() => onReject(Number(notification.id))}
         style={{

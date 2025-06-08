@@ -75,7 +75,7 @@ const ExamNotificationsPage: React.FC = () => {
               materia: n.Materia,
               fecha: new Date(n.fecha).toISOString().split("T")[0],
               hora: new Date(n.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              ubicacion: `Aula ${n.idMesa}`
+              modalidad: n.Modalidad
             }}
             onConfirm={() => handleConfirm(n.idMesa)}
             onReject={() => handleReject(n.idMesa)}
