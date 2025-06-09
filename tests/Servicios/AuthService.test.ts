@@ -12,4 +12,19 @@ describe("AuthService", () => {
     const token = await authService.login("otro@ucp.edu.ar", "incorrecta");
     expect(token).toBeNull();
   });
+
+  it("deberia retornar null si falta usuario", async () => {
+  const token = await authService.login("", "clave101");
+  expect(token).toBeNull();
+});
+
+it("deberia retornar null si falta clave", async () => {
+  const token = await authService.login("usuario101", "");
+  expect(token).toBeNull();
+});
+
+it("deberia retornar null si ambos campos están vacíos", async () => {
+  const token = await authService.login("", "");
+  expect(token).toBeNull();
+});
 });
