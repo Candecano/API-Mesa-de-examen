@@ -11,5 +11,17 @@ describe("NotificacionService", () => {
 
     expect(mockStrategy.enviarNotificacion).toHaveBeenCalled();
   });
+
+   it("deberia propagar errores de la estrategia", async () => {
+    const mockStrategy = {
+      enviarNotificacion: jest.fn().mockRejectedValue(new Error("Fallo"))
+    };
+    const servicio = new NotificacionService(mockStrategy);
+
+    await expect(servicio.enviarNotificacion("Titulo", { profesor: 1 }))
+      .rejects
+      .toThrow("Fallo");
+  });
+
 });
 

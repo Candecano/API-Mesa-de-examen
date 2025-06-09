@@ -18,7 +18,7 @@ export class MesaRepository {
 
     await pool.execute(
       `INSERT INTO mesadeexamen (idProfesor,Materia, fecha, Modalidad)
-       VALUES (?, ?, ? , ?)`,
+       VALUES (?, ?, ?, ?)`,
       [idProfesor, Materia, fecha, Modalidad]
     );
     

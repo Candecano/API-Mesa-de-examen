@@ -5,8 +5,8 @@ test('Inicio de sesion exitoso', async ({ page }) => {
   await page.goto('http://localhost:5173/');
   await page.pause(); 
 
-   await page.fill('#username', 'profesor');
-  await page.fill('#password', 'clave');
+   await page.fill('#username', 'usuario101');
+  await page.fill('#password', 'clave101');
    await page.getByRole('button', { name: 'Ingresar' }).click();
    await page.pause(); 
  
@@ -17,10 +17,10 @@ test('redireccion de pagina', async ({ page }) => {
   await page.pause(); 
  
 
-   await page.fill('#username', 'profesor');
+   await page.fill('#username', 'usuario101');
 
   
-  await page.fill('#password', 'clave');
+  await page.fill('#password', 'clave101');
    await page.getByRole('button', { name: 'Ingresar' }).click();
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);

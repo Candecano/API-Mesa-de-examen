@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
-import { SistemaExamenFacade } from '../../backend/src/Servicios/SistemaExamenFacade';
-import { MesaRepository } from '../../backend/src/Servicios/MesaRepository';
-import { RespuestaProfesorService } from '../../backend/src/Servicios/RespuestaProfesorService';
+
 import { NotificacionService } from '../../backend/src/Servicios/NotificacionService';
-import { PushNotificationStrategy } from '../../backend/src/Servicios/PushStrategyA';
 import { asignarMesa, confirmarMesa, rechazarMesa, notificarMesaDePrueba } from '../../backend/src/Controladores/GestiondeMesas';
 
 // Mock de las dependencias
@@ -93,3 +90,5 @@ describe('GestiondeMesas', () => {
     });
   });
 });
+
+
