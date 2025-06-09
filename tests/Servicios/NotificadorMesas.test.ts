@@ -12,7 +12,7 @@ describe("NotificadorMesas", () => {
   it("agrega y notifica observadores", () => {
     notificador.attach(observerMock);
 
-    const mesa = { materia: "Fisica", fecha: "2025-07-10", modalidad: "oral", profesor: 1 };
+    const mesa = { Materia: "Fisica", fecha: "2025-07-10", Modalidad: "oral", profesor: 1 };
     notificador.notify(mesa);
 
     expect(observerMock.update).toHaveBeenCalledWith(mesa);
@@ -22,7 +22,7 @@ describe("NotificadorMesas", () => {
     notificador.attach(observerMock);
     notificador.detach(observerMock);
 
-    const mesa = { materia: "Fisica", fecha: "2025-07-10", modalidad: "oral", profesor: 1 };
+    const mesa = { Materia: "Fisica", fecha: "2025-07-10", Modalidad: "oral", profesor: 1 };
     notificador.notify(mesa);
 
     expect(observerMock.update).not.toHaveBeenCalled();

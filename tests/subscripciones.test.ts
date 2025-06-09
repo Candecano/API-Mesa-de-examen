@@ -16,47 +16,50 @@ jest.mock("../backend/src/Servicios/NotificacionService", () => {
 
 import request from "supertest";
 import express from "express";
-import router from "../backend/src/subscripciones";
+import router from "../backend/src/suscripcionesRouter";
 
 //configuración de la app para test
 const app = express();
 app.use(express.json());
-app.use("/api", router);
+app.use("/api/subscripciones", router);
 
 
 describe("POST /api (suscripciones)", () => {
   it("deberia registrar una suscripcion correctamente", async () => {
     const suscripcionMock = {
+      idProfesor: 123,
+      subscription: {
       endpoint: "https://fcm.googleapis.com/fake-endpoint",
       expirationTime: null,
       keys: {
         p256dh: "clavePublicaFake",
         auth: "claveAuthFake",
       },
+      },
     };
 
     const res = await request(app)
-      .post("/api")
+      .post("/api/subscripciones")
       .send(suscripcionMock)
       .expect(201);
 
-    expect(res.body).toEqual({ message: "Suscripcion registrada" });
+    expect(res.body).toEqual({ message: "Suscripcion registrada con exito" });
   });
 });
 
-describe("POST /api/notificar", () => {
+describe("POST /api/subscripciones/notificar", () => {
   it("deberia enviar una notificacion correctamente", async () => {
     enviarNotificacionMock.mockResolvedValueOnce(undefined);
 
     const payload = {
       profesor: "Juan Pérez",
-      materia: "Matemática",
+      Materia: "Matemática",
       fecha: "2025-05-14",
-      modalidad: "Presencial",
+      Modalidad: "Presencial",
     };
 
     const res = await request(app)
-      .post("/api/notificar")
+      .post("/api/subscripciones/notificar")
       .send(payload)
       .expect(200);
 
@@ -74,7 +77,7 @@ describe("POST /api/notificar", () => {
     };
 
     const res = await request(app)
-      .post("/api/notificar")
+      .post("/api/subscripciones/notificar")
       .send(payload)
       .expect(500);
 

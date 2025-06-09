@@ -19,9 +19,9 @@ describe("PushSuscripcion", () => {
 
     const mesa: MesaInfo = {
       profesor: 123,
-      materia: "Matematica I",
+      Materia: "Matematica I",
       fecha: "2025-06-01",
-      modalidad: "Oral"
+      Modalidad: "Oral"
     };
 
     await observer.update(mesa);

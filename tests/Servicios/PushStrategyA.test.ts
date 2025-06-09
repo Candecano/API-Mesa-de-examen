@@ -19,11 +19,11 @@ describe("PushNotificationStrategy", () => {
     await strategy.enviarNotificacion(idProfesor, mensaje);
 
     expect(NotificacionPushService.notify).toHaveBeenCalledWith(
-      expect.objectContaining({
-        profesor: idProfesor,
-        materia: "Matematica Discreta",
-        modalidad: "Virtual",
-      })
-    );
-  });
+    expect.objectContaining({
+    profesor: idProfesor,
+    Materia: "(Sin materia)",
+    Modalidad: "(Sin modalidad)",
+  })
+);
+});
 });

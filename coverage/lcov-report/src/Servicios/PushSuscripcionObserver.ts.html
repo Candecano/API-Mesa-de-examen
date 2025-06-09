@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>10/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>6/15</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>10/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,20 +85,41 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -107,36 +128,48 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//observer- profesor suscripto a las notif (observador)
-//el profesor acepta recibir las notificaciones
-//el notificador de mesas (objeto) le avisa cuando hay un cambio o algo nuevo
-//maneja la suscripcion de clientes a las notificaciones
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// PushSuscripcionObserver.ts
+// Observador que representa a un profesor suscripto a notificaciones push
 &nbsp;
-import webpush from "web-push";
 import { Observer } from "./IObserver";
-import { MesaInfo} from "./NotificacionesPushObserver";
+import { MesaInfo } from "./NotificacionesPushObserver";
+import WebPushConfig from "../Configuracion/WebPushConfig";
+&nbsp;
+const webpush = WebPushConfig.getInstance().getWebPush();
+&nbsp;
 export class PushSuscripcion implements Observer {
-    constructor(private subscription: any) {} //suscripcion del navegador
-    async update(mesa: MesaInfo): Promise&lt;void&gt; { //cada vez que el sujeto observado llame a su metodo notify se ejecuta este metodo
-    const payload = JSON.stringify({   //mensaje de la notif
-      title: "Nueva mesa asignada",
-      ...mesa,
+  constructor(private subscription: any) {}
+&nbsp;
+  async update(mesa: MesaInfo): Promise&lt;void&gt; {
+    const payload = JSON.stringify({
+      title: "🛎️ Nueva mesa asignada",
+      body: "Se te ha asignado una nueva mesa de examen.",
     });
-//envio de la notificacion a la suscripcion 
+&nbsp;
     try {
+      console.log("📤 Enviando notificación a:", this.subscription<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>ndpoint || <span class="branch-1 cbranch-no" title="branch not covered" >"(sin endpoint)")</span>;
+&nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.subscription || !this.subscription.endpoint) {
+<span class="cstat-no" title="statement not covered" >        console.warn("⚠️ Suscripción inválida.");</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+&nbsp;
       await webpush.sendNotification(this.subscription, payload);
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >      console.error("Error al enviar notificacion:", error);</span>
+      console.log("✅ Notificación enviada correctamente.");
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >      console.error("❌ Error al enviar la notificación:", error?.message || error);</span>
     }
   }
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T13:12:23.380Z
+                at 2025-06-09T03:11:30.529Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

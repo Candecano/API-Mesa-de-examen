@@ -6,7 +6,7 @@ import { MesaRepository } from "../Servicios/MesaRepository";
 const router = Router();
 const mesaRepo = new MesaRepository(); 
 //  POST: Crear una nueva mesa y notificar
-router.post("/Mesas", async (req: Request, res: Response): Promise<void> => {
+router.post("/", async (req: Request, res: Response): Promise<void> => {
   const { profesor, Materia, fecha, Modalidad } = req.body;
 
   if (!profesor || !Materia || !fecha || !Modalidad) {
@@ -22,7 +22,7 @@ router.post("/Mesas", async (req: Request, res: Response): Promise<void> => {
   };
 
   try {
-    NotificacionPushService.notify(nuevaMesa);
+    await NotificacionPushService.notify(nuevaMesa);
     console.log(" Mesa creada y notificada:", nuevaMesa);
     res.status(201).json({ mensaje: "Mesa creada con exito", mesa: nuevaMesa });
   } catch (error: any) {
