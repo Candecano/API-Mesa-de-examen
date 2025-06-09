@@ -8,12 +8,12 @@ const router = Router();
 const estrategia = new PushNotificationStrategy();
 const notificador = new NotificacionService(estrategia);
 
-// Ruta para registrar nueva suscripción
+
 router.post("/", (req: Request, res: Response): void => {
   const { idProfesor, subscription } = req.body;
 
   if (!idProfesor || !subscription || !subscription.endpoint) {
-    console.warn(" Suscripcion invalida:", req.body);
+    console.warn("Suscripcion invalida:", req.body);
     res.status(400).json({ message: "Suscripcion invalida" });
     return;
   }
@@ -22,7 +22,7 @@ router.post("/", (req: Request, res: Response): void => {
   res.status(201).json({ message: "Suscripcion registrada con exito" });
 });
 
-// Ruta para enviar notificación manual
+
 router.post("/notificar", async (req: Request, res: Response) => {
   const { profesor, Materia, fecha, Modalidad } = req.body;
 

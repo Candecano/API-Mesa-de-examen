@@ -17,17 +17,17 @@ export class PushSuscripcion implements Observer {
     });
 
     try {
-      console.log("📤 Enviando notificación a:", this.subscription?.endpoint || "(sin endpoint)");
+      console.log("Enviando notificacion a:", this.subscription?.endpoint || "(sin endpoint)");
 
       if (!this.subscription || !this.subscription.endpoint) {
-        console.warn("⚠️ Suscripción inválida.");
+        console.warn("Suscripcion invalida.");
         return;
       }
 
       await webpush.sendNotification(this.subscription, payload);
-      console.log("✅ Notificación enviada correctamente.");
+      console.log("Notificacion enviada correctamente.");
     } catch (error: any) {
-      console.error("❌ Error al enviar la notificación:", error?.message || error);
+      console.error("Error al enviar la notificacion:", error?.message || error);
     }
   }
 }

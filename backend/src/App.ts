@@ -1,4 +1,3 @@
-//Confi app e
 
 import express from "express";
 import rutas from "./rutas";

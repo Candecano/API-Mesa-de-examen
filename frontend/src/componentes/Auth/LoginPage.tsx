@@ -27,7 +27,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
       if (response.ok) {
         const data = await response.json();
-        // el backend responde con:  usuario: usuario104 idProfesor: 104  ejemplo
+      
         onLogin(data.usuario, data.idProfesor);
         navigate('/examenes');
       } else {
